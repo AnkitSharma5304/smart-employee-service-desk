@@ -692,7 +692,7 @@ This project is licensed under the MIT License.
 
 See the LICENSE file for details.
 
-👨‍💻 Author
+## 👨‍💻 Author
 
 Ankit Sharma
 
@@ -700,7 +700,7 @@ Full-Stack MERN Developer
 
 GitHub: AnkitSharma5304
 LinkedIn: Ankit Sharma
-🙏 Acknowledgments
+## 🙏 Acknowledgments
 
 Special thanks to the teams and open-source communities behind the technologies used in this project:
 
@@ -714,15 +714,15 @@ Radix UI community for accessible UI primitives
 Socket.IO team for real-time communication
 Recharts community for data visualization
 All open-source contributors whose work helped make this project possible
-📞 Support
+## 📞 Support
 
 If you encounter an issue or have a question:
 
-Email
+### Email
 
 ankit676756@gmail.com
 
-GitHub Issues
+### 🐛 GitHub Issues
 
 Open an issue in the repository and provide:
 
