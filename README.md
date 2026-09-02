@@ -1,4 +1,9 @@
-# 🎫 Support Ticket Management System
+# 🎫 Smart Employee Service Desk & Ticket Management
+
+[![React](https://img.shields.io/badge/React-18-blue.svg)](https://reactjs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-Backend-green.svg)](https://nodejs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Database-brightgreen.svg)](https://www.mongodb.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A comprehensive, full-stack support ticket management system built with the MERN stack (MongoDB, Express.js, React, Node.js). This system provides advanced features for managing customer support tickets, tracking performance, and improving service quality.
 
@@ -13,7 +18,6 @@ A comprehensive, full-stack support ticket management system built with the MERN
 - [Demo Credentials](#demo-credentials)
 - [API Documentation](#api-documentation)
 - [Project Structure](#project-structure)
-- [Features Documentation](#features-documentation)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -46,9 +50,6 @@ A comprehensive, full-stack support ticket management system built with the MERN
 - ✅ **Custom Dashboards** - Drag-and-drop widget customization
 - ✅ **PDF Reports** - Generate and download PDF reports
 - ✅ **Email Scheduling** - Schedule automated report emails
-- ✅ **ML Predictions** - Machine learning-based predictions
-- ✅ **Anomaly Detection** - Identify unusual patterns
-- ✅ **Natural Language Queries** - Ask questions in plain English
 
 ### User Management
 - ✅ **Role-Based Access Control** - Admin, Agent, User roles
@@ -61,7 +62,6 @@ A comprehensive, full-stack support ticket management system built with the MERN
 - ✅ **Ticket Replies** - Comment on tickets
 - ✅ **Email Notifications** - Automated email alerts
 - ✅ **Real-time Notifications** - Instant updates via WebSocket
-- ✅ **Mention System** - @mention users in comments
 
 ## 🛠 Tech Stack
 
@@ -103,9 +103,8 @@ Before you begin, ensure you have the following installed:
 ### 1. Clone the Repository
 
 ```bash
-git clone [https://github.com/AnkitSharma5304/smart-employee-service-desk](https://github.com/AnkitSharma5304/smart-employee-service-desk)
-cd support-ticket-system
-
+git clone [https://github.com/AnkitSharma5304/smart-employee-service-desk.git](https://github.com/AnkitSharma5304/smart-employee-service-desk.git)
+cd smart-employee-service-desk
 2. Install Backend Dependencies
 Bash
 cd backend
@@ -185,6 +184,12 @@ Bash
 cd backend
 npm run seed
 npm run seed:templates
+📚 API Documentation
+(Add details regarding your API endpoints here, or link to a Postman collection/Swagger docs)
+
+📁 Project Structure
+(Add a brief tree structure of your frontend and backend directories here)
+
 🤝 Contributing
 Contributions are welcome! Please follow these steps:
 
@@ -202,7 +207,7 @@ Open a Pull Request
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 👥 Authors
-- **Ankit Sharma** - *Full-Stack MERN Developer* - [GitHub](https://github.com/AnkitSharma5304)
+Ankit Sharma - Full-Stack MERN Developer - GitHub
 
 🙏 Acknowledgments
 React team for the amazing framework
