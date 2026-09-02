@@ -93,651 +93,123 @@ A comprehensive, full-stack support ticket management system built with the MERN
 
 Before you begin, ensure you have the following installed:
 
-- **Node.js** (v16 or higher) - [Download](https://nodejs.org/)
-- **MongoDB** (v5 or higher) - [Download](https://www.mongodb.com/try/download/community) or use [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-- **npm** or **yarn** - Package manager (comes with Node.js)
-- **Git** - Version control
+- **Node.js** (v16 or higher)
+- **MongoDB** (v5 or higher) or use **MongoDB Atlas**
+- **npm** or **yarn**
+- **Git**
 
 ## 🚀 Installation
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/support-ticket-system.git
+git clone [https://github.com/AnkitSharma5304/smart-employee-service-desk](https://github.com/AnkitSharma5304/smart-employee-service-desk)
 cd support-ticket-system
-```
 
-### 2. Install Backend Dependencies
-
-```bash
+2. Install Backend Dependencies
+Bash
 cd backend
 npm install
-```
-
-### 3. Install Frontend Dependencies
-
-```bash
+3. Install Frontend Dependencies
+Bash
 cd ../frontend
 npm install
-```
+⚙️ Configuration
+Backend Configuration
+Create a .env file in the backend directory:
 
-## ⚙️ Configuration
-
-### Backend Configuration
-
-Create a `.env` file in the `backend` directory:
-
-```env
+Code snippet
 # Server Configuration
 PORT=5000
 NODE_ENV=development
 
 # Database
-MONGODB_URI=mongodb://localhost:27017/ticket-system
-# Or use MongoDB Atlas:
-# MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/ticket-system
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/ticket-system
 
 # JWT Configuration
-JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+JWT_SECRET=your-super-secret-jwt-key
 JWT_EXPIRE=7d
 
-# Email Configuration (Gmail example)
+# Email Configuration 
 EMAIL_HOST=smtp.gmail.com
 EMAIL_PORT=587
-EMAIL_USER=your-email@gmail.com
+EMAIL_USER=ankit676756@gmail.com
 EMAIL_PASSWORD=your-app-specific-password
-EMAIL_FROM=noreply@yourdomain.com
+EMAIL_FROM=ankit676756@gmail.com
 
 # Frontend URL
 FRONTEND_URL=http://localhost:5173
 
-# Google OAuth (Optional)
-GOOGLE_CLIENT_ID=your-google-client-id
-GOOGLE_CLIENT_SECRET=your-google-client-secret
-GOOGLE_REDIRECT_URI=http://localhost:5000/api/auth/google/callback
-
 # Escalation Job Configuration
 ESCALATION_CHECK_INTERVAL=*/5 * * * *
-```
+Frontend Configuration
+Create a .env file in the frontend directory:
 
-### Frontend Configuration
-
-Create a `.env` file in the `frontend` directory:
-
-```env
+Code snippet
 VITE_API_URL=http://localhost:5000/api
-```
+🏃 Running the Application
+Development Mode
+Terminal 1 (Backend):
 
-### Email Setup (Gmail)
-
-1. Go to [Google Account Settings](https://myaccount.google.com/)
-2. Enable 2-Factor Authentication
-3. Generate an App Password
-4. Use the App Password in `EMAIL_PASSWORD`
-
-### Google OAuth Setup (Optional)
-
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project
-3. Enable Google+ API
-4. Create OAuth 2.0 credentials
-5. Add authorized redirect URIs:
-   - `http://localhost:5000/api/auth/google/callback`
-   - `http://localhost:5173/auth/callback`
-6. Copy Client ID and Secret to `.env`
-
-## 🏃 Running the Application
-
-### Development Mode
-
-#### Start Backend Server
-
-```bash
+Bash
 cd backend
 npm run dev
-```
+Terminal 2 (Frontend):
 
-The backend will run on `http://localhost:5000`
-
-#### Start Frontend Development Server
-
-```bash
+Bash
 cd frontend
 npm run dev
-```
+👤 Demo Credentials
+Admin Account
 
-The frontend will run on `http://localhost:5173`
-
-### Production Mode
-
-#### Build Frontend
-
-```bash
-cd frontend
-npm run build
-```
-
-#### Start Backend in Production
-
-```bash
-cd backend
-npm start
-```
-
-## 👤 Demo Credentials
-
-### Admin Account
-```
 Email: admin@example.com
+
 Password: admin123
-Role: Admin
-```
 
-### Agent Account
-```
+Agent Account
+
 Email: agent@example.com
+
 Password: agent123
-Role: Agent
-```
 
-### Customer Account
-```
+Customer Account
+
 Email: user@example.com
+
 Password: user123
-Role: User
-```
 
-**Note**: Create these accounts after running the application for the first time, or use the seed script.
-
-### Seed Database
-
+Seed Database
 To populate the database with sample data:
 
-```bash
+Bash
 cd backend
 npm run seed
-```
-
-To seed ticket templates:
-
-```bash
-cd backend
 npm run seed:templates
-```
-
-## 📚 API Documentation
-
-### Base URL
-```
-http://localhost:5000/api
-```
-
-### Authentication Endpoints
-
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| POST | `/auth/register` | Register new user | No |
-| POST | `/auth/login` | Login user | No |
-| GET | `/auth/me` | Get current user | Yes |
-| GET | `/auth/google` | Google OAuth login | No |
-| GET | `/auth/google/callback` | Google OAuth callback | No |
-
-### Ticket Endpoints
-
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | `/tickets` | Get all tickets | Yes |
-| GET | `/tickets/:id` | Get single ticket | Yes |
-| POST | `/tickets` | Create ticket | Yes |
-| PUT | `/tickets/:id` | Update ticket | Yes |
-| DELETE | `/tickets/:id` | Delete ticket | Yes (Admin) |
-| POST | `/tickets/:id/reply` | Add reply | Yes |
-| PUT | `/tickets/:id/status` | Change status | Yes |
-| PUT | `/tickets/:id/assign` | Assign ticket | Yes |
-| POST | `/tickets/:id/merge` | Merge tickets | Yes |
-| POST | `/tickets/:id/dependency` | Add dependency | Yes |
-
-### Department Endpoints
-
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | `/departments` | Get all departments | Yes |
-| POST | `/departments` | Create department | Yes (Admin) |
-| PUT | `/departments/:id` | Update department | Yes (Admin) |
-| DELETE | `/departments/:id` | Delete department | Yes (Admin) |
-
-### Status Endpoints
-
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | `/statuses` | Get all statuses | Yes |
-| POST | `/statuses` | Create status | Yes (Admin) |
-| PUT | `/statuses/:id` | Update status | Yes (Admin) |
-| DELETE | `/statuses/:id` | Delete status | Yes (Admin) |
-
-### Escalation Endpoints
-
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | `/escalations` | Get all rules | Yes (Admin) |
-| POST | `/escalations` | Create rule | Yes (Admin) |
-| PUT | `/escalations/:id` | Update rule | Yes (Admin) |
-| DELETE | `/escalations/:id` | Delete rule | Yes (Admin) |
-
-### Analytics Endpoints
-
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | `/analytics/overview` | Get overview stats | Yes |
-| GET | `/analytics/tickets` | Get ticket analytics | Yes |
-| GET | `/analytics/agents` | Get agent performance | Yes |
-| POST | `/analytics/pdf` | Generate PDF report | Yes |
-| POST | `/analytics/schedule` | Schedule email report | Yes |
-
-### Attachment Endpoints
-
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| POST | `/attachments/upload` | Upload files | Yes |
-| GET | `/attachments/ticket/:id` | Get ticket attachments | Yes |
-| GET | `/attachments/:id/download` | Download file | Yes |
-| GET | `/attachments/:id/view` | View file inline | Yes |
-| DELETE | `/attachments/:id` | Delete attachment | Yes |
-
-### Saved Reply Endpoints
-
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | `/saved-replies` | Get all replies | Yes |
-| POST | `/saved-replies` | Create reply | Yes |
-| PUT | `/saved-replies/:id` | Update reply | Yes |
-| DELETE | `/saved-replies/:id` | Delete reply | Yes |
-| POST | `/saved-replies/:id/usage` | Record usage | Yes |
-
-### Ticket Template Endpoints
-
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | `/ticket-templates` | Get all templates | Yes |
-| POST | `/ticket-templates` | Create template | Yes |
-| PUT | `/ticket-templates/:id` | Update template | Yes |
-| DELETE | `/ticket-templates/:id` | Delete template | Yes |
-| POST | `/ticket-templates/:id/duplicate` | Duplicate template | Yes |
-
-### Survey Endpoints
-
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | `/surveys` | Get all surveys | Yes |
-| POST | `/surveys` | Create survey | Yes |
-| GET | `/surveys/analytics` | Get survey analytics | Yes |
-| GET | `/surveys/public/:token` | Get survey by token | No |
-| POST | `/surveys/public/:token/submit` | Submit survey | No |
-
-### Ticket Lock Endpoints
-
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| POST | `/ticket-locks/:id/acquire` | Acquire lock | Yes |
-| POST | `/ticket-locks/:id/release` | Release lock | Yes |
-| POST | `/ticket-locks/:id/refresh` | Refresh lock | Yes |
-| GET | `/ticket-locks/:id/check` | Check lock status | Yes |
-
-## 📁 Project Structure
-
-```
-support-ticket-system/
-├── backend/
-│   ├── src/
-│   │   ├── config/
-│   │   │   ├── database.js
-│   │   │   ├── socket.js
-│   │   │   └── upload.js
-│   │   ├── controllers/
-│   │   │   ├── analyticsController.js
-│   │   │   ├── attachmentController.js
-│   │   │   ├── authController.js
-│   │   │   ├── departmentController.js
-│   │   │   ├── escalationController.js
-│   │   │   ├── googleAuthController.js
-│   │   │   ├── savedReplyController.js
-│   │   │   ├── statusController.js
-│   │   │   ├── surveyController.js
-│   │   │   ├── ticketController.js
-│   │   │   ├── ticketLockController.js
-│   │   │   └── ticketTemplateController.js
-│   │   ├── middleware/
-│   │   │   ├── auth.js
-│   │   │   └── errorHandler.js
-│   │   ├── models/
-│   │   │   ├── Attachment.js
-│   │   │   ├── AuditLog.js
-│   │   │   ├── Department.js
-│   │   │   ├── EscalationRule.js
-│   │   │   ├── SavedReply.js
-│   │   │   ├── Status.js
-│   │   │   ├── Survey.js
-│   │   │   ├── Ticket.js
-│   │   │   ├── TicketLock.js
-│   │   │   ├── TicketTemplate.js
-│   │   │   └── User.js
-│   │   ├── routes/
-│   │   │   ├── analyticsRoutes.js
-│   │   │   ├── attachmentRoutes.js
-│   │   │   ├── authRoutes.js
-│   │   │   ├── departmentRoutes.js
-│   │   │   ├── escalationRoutes.js
-│   │   │   ├── savedReplyRoutes.js
-│   │   │   ├── statusRoutes.js
-│   │   │   ├── surveyRoutes.js
-│   │   │   ├── ticketLockRoutes.js
-│   │   │   ├── ticketRoutes.js
-│   │   │   └── ticketTemplateRoutes.js
-│   │   ├── scripts/
-│   │   │   ├── seed.js
-│   │   │   └── seedTicketTemplates.js
-│   │   ├── services/
-│   │   │   ├── emailScheduler.js
-│   │   │   ├── escalationService.js
-│   │   │   ├── mlPredictions.js
-│   │   │   └── pdfService.js
-│   │   ├── utils/
-│   │   │   ├── auditLogger.js
-│   │   │   └── ticketNumber.js
-│   │   └── server.js
-│   ├── uploads/
-│   ├── .env
-│   ├── .gitignore
-│   └── package.json
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── AttachmentList.jsx
-│   │   │   ├── FileUpload.jsx
-│   │   │   ├── Layout.jsx
-│   │   │   ├── ProtectedRoute.jsx
-│   │   │   ├── SavedReplyPicker.jsx
-│   │   │   └── TicketTemplatePicker.jsx
-│   │   ├── context/
-│   │   │   └── AuthContext.jsx
-│   │   ├── hooks/
-│   │   │   └── useTicketLock.js
-│   │   ├── pages/
-│   │   │   ├── AdvancedAnalytics.jsx
-│   │   │   ├── Analytics.jsx
-│   │   │   ├── AuthCallback.jsx
-│   │   │   ├── CreateTicket.jsx
-│   │   │   ├── CustomDashboard.jsx
-│   │   │   ├── Dashboard.jsx
-│   │   │   ├── Departments.jsx
-│   │   │   ├── EscalationRules.jsx
-│   │   │   ├── Login.jsx
-│   │   │   ├── Register.jsx
-│   │   │   ├── SavedReplies.jsx
-│   │   │   ├── Statuses.jsx
-│   │   │   ├── Surveys.jsx
-│   │   │   ├── SurveySubmit.jsx
-│   │   │   ├── TicketDetail.jsx
-│   │   │   ├── TicketList.jsx
-│   │   │   ├── TicketTemplates.jsx
-│   │   │   └── Users.jsx
-│   │   ├── services/
-│   │   │   ├── api.js
-│   │   │   ├── notificationService.js
-│   │   │   └── ticketService.js
-│   │   ├── App.jsx
-│   │   ├── index.css
-│   │   └── main.jsx
-│   ├── .env
-│   ├── .gitignore
-│   ├── index.html
-│   ├── package.json
-│   └── vite.config.js
-├── .gitignore
-├── README.md
-└── package.json
-```
-
-## 📖 Features Documentation
-
-### 1. Ticket Management
-
-**Create Ticket**
-- Navigate to "Create Ticket"
-- Fill in title, description, priority
-- Select department
-- Add tags
-- Upload attachments
-- Submit
-
-**View Tickets**
-- Navigate to "Tickets"
-- Filter by status, priority, department
-- Search by ticket number or title
-- Click to view details
-
-**Update Ticket**
-- Open ticket detail page
-- Change status, priority, or assignment
-- Add replies and internal notes
-- Upload additional files
-
-### 2. File Attachments
-
-**Upload Files**
-- Drag and drop files
-- Or click to browse
-- Supports: Images, PDFs, Documents
-- Max 5 files, 10MB each
-- Preview images inline
-- Download any file
-
-### 3. Saved Replies
-
-**Create Saved Reply**
-- Navigate to "Saved Replies"
-- Click "New Reply"
-- Add title and content
-- Use variables: `{customer_name}`, `{ticket_id}`, `{agent_name}`
-- Set visibility (Private, Department, Global)
-- Add shortcut (e.g., `/welcome`)
-
-**Use Saved Reply**
-- Open ticket detail
-- Click "Saved Replies" button
-- Search or browse
-- Click to insert
-- Variables auto-replace
-
-### 4. Ticket Templates
-
-**Create Template**
-- Navigate to "Ticket Templates"
-- Click "New Template"
-- Fill in default values
-- Choose icon and color
-- Set visibility
-- Save
-
-**Use Template**
-- Click "Use Template" when creating ticket
-- Select template
-- Form pre-fills
-- Modify as needed
-- Submit
-
-### 5. CSAT Surveys
-
-**Send Survey**
-- Close/resolve a ticket
-- Click "Send Survey" button
-- Copy survey link
-- Share with customer
-
-**Customer Completes Survey**
-- Click survey link
-- Rate experience (1-5 stars)
-- Provide NPS score (0-10)
-- Write feedback
-- Submit
-
-**View Results**
-- Navigate to "Surveys"
-- View analytics dashboard
-- See individual responses
-- Track agent performance
-
-### 6. Collision Detection
-
-**How It Works**
-- Agent A opens ticket
-- Agent B opens same ticket
-- Agent B sees warning banner
-- Agent B's fields are disabled
-- Agent A closes ticket
-- Agent B can now edit
-
-**Visual Indicators**
-- Yellow warning banner
-- Disabled form fields
-- Real-time updates
-
-### 7. Analytics
-
-**Dashboard**
-- Overview statistics
-- Recent tickets
-- Agent performance
-- Department metrics
-
-**Advanced Analytics**
-- Detailed charts
-- Custom date ranges
-- Export to PDF
-- Schedule email reports
-
-**Custom Dashboard**
-- Drag and drop widgets
-- Customize layout
-- Save preferences
-
-### 8. Escalation Rules
-
-**Create Rule**
-- Navigate to "Escalation Rules"
-- Set conditions (priority, time, status)
-- Define actions (assign, notify, change priority)
-- Save rule
-
-**Automatic Escalation**
-- Runs every 5 minutes
-- Checks all rules
-- Applies actions
-- Sends notifications
-
-## 🔒 Security Features
-
-- **JWT Authentication** - Secure token-based auth
-- **Password Hashing** - Bcrypt encryption
-- **Role-Based Access Control** - Admin, Agent, User roles
-- **Input Validation** - Sanitize all inputs
-- **File Upload Security** - Type and size validation
-- **XSS Protection** - Prevent cross-site scripting
-- **CORS Configuration** - Controlled cross-origin requests
-- **Audit Logging** - Track all user actions
-- **Rate Limiting** - Prevent abuse (recommended for production)
-
-## 🚀 Deployment
-
-### Deploy to Heroku
-
-1. Create Heroku app
-2. Add MongoDB Atlas add-on
-3. Set environment variables
-4. Deploy backend
-5. Build and deploy frontend
-
-### Deploy to Vercel (Frontend)
-
-1. Connect GitHub repository
-2. Set environment variables
-3. Deploy
-
-### Deploy to Railway (Backend)
-
-1. Connect GitHub repository
-2. Add MongoDB database
-3. Set environment variables
-4. Deploy
-
-## 🧪 Testing
-
-### Run Backend Tests
-
-```bash
-cd backend
-npm test
-```
-
-### Run Frontend Tests
-
-```bash
-cd frontend
-npm test
-```
-
-## 🤝 Contributing
-
+🤝 Contributing
 Contributions are welcome! Please follow these steps:
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Fork the repository
 
-## 📝 License
+Create a feature branch (git checkout -b feature/AmazingFeature)
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Commit your changes (git commit -m 'Add some AmazingFeature')
 
-## 👥 Authors
+Push to the branch (git push origin feature/AmazingFeature)
 
-- **Hemal Katariya** - *MERN Stack Developer* - [GitHub](https://github.com/AnshuHemal)
+Open a Pull Request
 
-## 🙏 Acknowledgments
+📝 License
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-- React team for the amazing framework
-- MongoDB team for the database
-- All contributors who helped with this project
+👥 Authors
+- **Ankit Sharma** - *Full-Stack MERN Developer* - [GitHub](https://github.com/AnkitSharma5304)
 
-## 📞 Support
+🙏 Acknowledgments
+React team for the amazing framework
 
-For support, email connect.hemal@gmail.com or join our Slack channel.
+MongoDB team for the database
 
-## 🗺️ Roadmap
+All contributors who helped with this project
 
-- [ ] Mobile app (React Native)
-- [ ] Multi-language support
-- [ ] Advanced reporting
-- [ ] Integration with Slack/Teams
-- [ ] AI-powered ticket routing
-- [ ] Customer portal
-- [ ] Knowledge base
-- [ ] Live chat integration
-
-## 📊 Performance
-
-- Average response time: < 200ms
-- Supports 1000+ concurrent users
-- Real-time updates via WebSocket
-- Optimized database queries
-- Efficient file handling
-
-## 🌟 Star History
-
-If you find this project useful, please consider giving it a star on GitHub!
-
----
-
-Made with ❤️ by [Hemal Katariya](https://github.com/AnshuHemal)
+📞 Support
+For support, email ankit676756@gmail.com or open an issue on the repository.
