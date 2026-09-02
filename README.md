@@ -1,219 +1,190 @@
 # 🎫 Smart Employee Service Desk & Ticket Management
 
-[![React](https://img.shields.io/badge/React-18-blue.svg)](https://reactjs.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-Backend-green.svg)](https://nodejs.org/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-Database-brightgreen.svg)](https://www.mongodb.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+A full-stack employee service desk and ticket management portal for managing internal support requests across departments such as IT, HR, Facilities, Finance, and Access Management.
 
-A comprehensive, full-stack support ticket management system built with the MERN stack (MongoDB, Express.js, React, Node.js). This system provides advanced features for managing customer support tickets, tracking performance, and improving service quality.
+The application allows employees to create and track support tickets while support staff can manage assignments, priorities, statuses, comments, and ticket resolution.
+
+---
 
 ## 📋 Table of Contents
 
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Running the Application](#running-the-application)
-- [Demo Credentials](#demo-credentials)
-- [API Documentation](#api-documentation)
-- [Project Structure](#project-structure)
-- [Contributing](#contributing)
-- [License](#license)
+- [Overview](#-overview)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Architecture](#-architecture)
+- [Database Design](#-database-design)
+- [Project Structure](#-project-structure)
+- [API Endpoints](#-api-endpoints)
+- [Prerequisites](#-prerequisites)
+- [Installation](#-installation)
+- [Environment Variables](#-environment-variables)
+- [Database Setup](#-database-setup)
+- [Running the Application](#-running-the-application)
+- [Testing](#-testing)
+- [Business Rules](#-business-rules)
+- [Design Decisions](#-design-decisions)
+- [Future Improvements](#-future-improvements)
+- [Author](#-author)
+
+---
+
+## 📌 Overview
+
+The Smart Employee Service Desk is an internal support ticket management system designed to streamline employee support requests.
+
+Employees can submit tickets by selecting a department, category, and priority. Support staff can view, search, filter, assign, update, and resolve these tickets.
+
+The application also provides a dashboard with ticket statistics and visual reports.
+
+### Supported Departments
+
+- IT
+- HR
+- Facilities
+- Finance
+- Access Management
+
+### Ticket Priorities
+
+- Low
+- Medium
+- High
+- Critical
+
+### Ticket Statuses
+
+- Open
+- In Progress
+- Resolved
+- Closed
+
+---
 
 ## ✨ Features
 
-### Core Ticket Management
-- ✅ **Create, Read, Update, Delete Tickets** - Full CRUD operations
-- ✅ **Ticket Assignment** - Assign tickets to agents
-- ✅ **Status Management** - Customizable ticket statuses
-- ✅ **Priority Levels** - Low, Medium, High, Urgent
-- ✅ **Department Organization** - Organize tickets by departments
-- ✅ **Ticket History** - Track all changes and updates
-- ✅ **Internal Notes** - Private notes for agents
-- ✅ **Ticket Merging** - Merge duplicate tickets
-- ✅ **Ticket Dependencies** - Link related tickets
+### 🎫 Ticket Management
 
-### Advanced Features
-- ✅ **File Attachments** - Upload and manage files (images, PDFs, documents)
-- ✅ **Saved Replies** - Quick response templates with variables
-- ✅ **Ticket Templates** - Pre-defined ticket templates for common issues
-- ✅ **CSAT Surveys** - Customer satisfaction surveys with NPS scoring
-- ✅ **Collision Detection** - Prevent multiple agents from editing same ticket
-- ✅ **Real-time Updates** - WebSocket-based live notifications
-- ✅ **Escalation Rules** - Automatic ticket escalation based on rules
-- ✅ **Auto-close Tickets** - Automatically close resolved tickets
+- Create support tickets
+- View all tickets
+- View ticket details
+- Update tickets
+- Assign tickets to support staff
+- Change ticket priority
+- Change ticket status
+- Close tickets
+- Add comments and resolution notes
+- Track ticket creation and update timestamps
 
-### Analytics & Reporting
-- ✅ **Dashboard Analytics** - Overview of ticket metrics
-- ✅ **Advanced Analytics** - Detailed charts and graphs
-- ✅ **Custom Dashboards** - Drag-and-drop widget customization
-- ✅ **PDF Reports** - Generate and download PDF reports
-- ✅ **Email Scheduling** - Schedule automated report emails
+### 🔎 Search & Filtering
 
-### User Management
-- ✅ **Role-Based Access Control** - Admin, Agent, User roles
-- ✅ **Google OAuth** - Sign in with Google
-- ✅ **Email Authentication** - Traditional email/password login
-- ✅ **User Profiles** - Manage user information
-- ✅ **Audit Logs** - Track all user actions
+- Search tickets by title or description
+- Filter by status
+- Filter by priority
+- Filter by department
+- Filter by category
+- Paginated ticket results
 
-### Communication
-- ✅ **Ticket Replies** - Comment on tickets
-- ✅ **Email Notifications** - Automated email alerts
-- ✅ **Real-time Notifications** - Instant updates via WebSocket
+### 📊 Dashboard & Analytics
 
-## 🛠 Tech Stack
+- Total ticket count
+- Open ticket count
+- In-progress ticket count
+- Resolved ticket count
+- Closed ticket count
+- High/Critical priority tickets
+- Tickets by department
+- Tickets by category
+- Tickets by priority
+- Tickets by status
+- Recent tickets
+
+### ⏱️ Ticket Aging / SLA
+
+The system identifies tickets that have remained open for more than 30 days.
+
+Such tickets are marked as:
+
+**SLA Breached / Overdue**
+
+This helps support teams identify tickets that require attention.
+
+### ✅ Validation & Error Handling
+
+- Frontend form validation
+- Backend request validation
+- Invalid category protection
+- Invalid priority/status protection
+- Resource existence validation
+- Centralized API error handling
+- Proper HTTP status codes
+- User-friendly error messages
+
+### 📚 API Documentation
+
+- RESTful API
+- Swagger/OpenAPI documentation
+- Interactive API testing through Swagger UI
+
+---
+
+## 🛠️ Tech Stack
 
 ### Frontend
-- **React 18** - UI library
-- **Vite** - Build tool and dev server
-- **React Router** - Client-side routing
-- **Axios** - HTTP client
-- **Socket.io Client** - Real-time communication
-- **Recharts** - Data visualization
-- **Lucide React** - Icon library
-- **React Hot Toast** - Notifications
-- **Tailwind CSS** - Utility-first CSS framework
+
+- React 18
+- Vite
+- React Router
+- Axios
+- Recharts
+- CSS
 
 ### Backend
-- **Node.js** - Runtime environment
-- **Express.js** - Web framework
-- **MongoDB** - Database
-- **Mongoose** - ODM for MongoDB
-- **Socket.io** - Real-time communication
-- **JWT** - Authentication
-- **Bcrypt** - Password hashing
-- **Multer** - File upload handling
-- **Node-cron** - Scheduled tasks
-- **Nodemailer** - Email sending
-- **PDFKit** - PDF generation
 
-## 📦 Prerequisites
+- Node.js
+- Express.js
+- Prisma ORM
+- Zod
+- Swagger/OpenAPI
+- dotenv
+- CORS
 
-Before you begin, ensure you have the following installed:
+### Database
 
-- **Node.js** (v16 or higher)
-- **MongoDB** (v5 or higher) or use **MongoDB Atlas**
-- **npm** or **yarn**
-- **Git**
+- Microsoft SQL Server
+- Prisma ORM for database access and migrations
 
-## 🚀 Installation
+---
 
-### 1. Clone the Repository
+## 🏗️ Architecture
 
-```bash
-git clone [https://github.com/AnkitSharma5304/smart-employee-service-desk.git](https://github.com/AnkitSharma5304/smart-employee-service-desk.git)
-cd smart-employee-service-desk
-2. Install Backend Dependencies
-Bash
-cd backend
-npm install
-3. Install Frontend Dependencies
-Bash
-cd ../frontend
-npm install
-⚙️ Configuration
-Backend Configuration
-Create a .env file in the backend directory:
+The application follows a simple layered architecture.
 
-Code snippet
-# Server Configuration
-PORT=5000
-NODE_ENV=development
-
-# Database
-MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/ticket-system
-
-# JWT Configuration
-JWT_SECRET=your-super-secret-jwt-key
-JWT_EXPIRE=7d
-
-# Email Configuration 
-EMAIL_HOST=smtp.gmail.com
-EMAIL_PORT=587
-EMAIL_USER=ankit676756@gmail.com
-EMAIL_PASSWORD=your-app-specific-password
-EMAIL_FROM=ankit676756@gmail.com
-
-# Frontend URL
-FRONTEND_URL=http://localhost:5173
-
-# Escalation Job Configuration
-ESCALATION_CHECK_INTERVAL=*/5 * * * *
-Frontend Configuration
-Create a .env file in the frontend directory:
-
-Code snippet
-VITE_API_URL=http://localhost:5000/api
-🏃 Running the Application
-Development Mode
-Terminal 1 (Backend):
-
-Bash
-cd backend
-npm run dev
-Terminal 2 (Frontend):
-
-Bash
-cd frontend
-npm run dev
-👤 Demo Credentials
-Admin Account
-
-Email: admin@example.com
-
-Password: admin123
-
-Agent Account
-
-Email: agent@example.com
-
-Password: agent123
-
-Customer Account
-
-Email: user@example.com
-
-Password: user123
-
-Seed Database
-To populate the database with sample data:
-
-Bash
-cd backend
-npm run seed
-npm run seed:templates
-📚 API Documentation
-(Add details regarding your API endpoints here, or link to a Postman collection/Swagger docs)
-
-📁 Project Structure
-(Add a brief tree structure of your frontend and backend directories here)
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👥 Authors
-
-- **Ankit Sharma** - *Full-Stack MERN Developer* - [GitHub](https://github.com/AnkitSharma5304)
-
-## 🙏 Acknowledgments
-
-- React team for the amazing framework
-- MongoDB team for the database
-- All contributors who helped with this project
-
-## 📞 Support
-
-For support, email ankit676756@gmail.com or open an issue on the repository.
+```text
+┌──────────────────────────────┐
+│        React Frontend        │
+│                              │
+│ Dashboard / Tickets / Forms  │
+└──────────────┬───────────────┘
+               │
+             Axios
+               │
+               ▼
+┌──────────────────────────────┐
+│       Express REST API       │
+├──────────────────────────────┤
+│            Routes            │
+│              ↓               │
+│         Controllers          │
+│              ↓               │
+│           Services           │
+│              ↓               │
+│            Prisma            │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│        SQL Server            │
+│                              │
+│ Users / Tickets / Categories │
+│ Comments                     │
+└──────────────────────────────┘
