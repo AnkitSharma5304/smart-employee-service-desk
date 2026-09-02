@@ -224,6 +224,8 @@ smart-employee-service-desk/
                  ┌─────────────────┐
                  │     Closed      │
                  └─────────────────┘
+```
+```markdown                 
 👤 User Roles
 🔴 Admin
 
@@ -785,3 +787,4 @@ Tailwind CSS
 Vite
 
 A scalable support management platform for modern organizations.
+```
