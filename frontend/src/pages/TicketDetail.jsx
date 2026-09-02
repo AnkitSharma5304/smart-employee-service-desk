@@ -299,10 +299,10 @@ const TicketDetail = () => {
   const canEdit = user?.role !== 'user' || ticket.createdBy._id === user?.id;
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="mx-auto max-w-6xl space-y-6">
       <button
         onClick={() => navigate('/tickets')}
-        className="flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6 transition-colors"
+        className="flex items-center gap-2 rounded-2xl border border-border/70 bg-white/80 px-4 py-3 text-sm font-medium text-muted-foreground transition-all hover:text-foreground"
       >
         <ArrowLeft size={20} />
         Back to Tickets
@@ -342,18 +342,18 @@ const TicketDetail = () => {
         </div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {}
         <div className="lg:col-span-2 space-y-6">
           {}
-          <div className="bg-card p-6 rounded-lg shadow-sm border border-border">
+          <div className="rounded-[2rem] border border-white/70 bg-white/90 p-6 shadow-[0_18px_55px_rgba(15,23,42,0.06)] backdrop-blur">
             <div className="flex items-start justify-between mb-4">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
                   <span className="text-sm font-semibold text-muted-foreground">
                     {ticket.ticketNumber}
                   </span>
-                  <span className={`px-2 py-1 rounded-sm text-xs font-semibold ${getPriorityClasses(ticket.priority)}`}>
+                  <span className={`rounded-full px-3 py-1 text-xs font-semibold ${getPriorityClasses(ticket.priority)}`}>
                     {ticket.priority}
                   </span>
                 </div>
@@ -362,7 +362,7 @@ const TicketDetail = () => {
                     type="text"
                     value={editData.title}
                     onChange={(e) => setEditData({ ...editData, title: e.target.value })}
-                    className="w-full text-2xl font-bold mb-2 px-2 py-1 border-2 border-border rounded bg-background text-foreground"
+                    className="mb-2 w-full rounded-2xl border border-border/70 bg-background/85 px-4 py-3 text-2xl font-bold text-foreground"
                   />
                 ) : (
                   <h1 className="text-2xl font-bold text-foreground mb-2">{ticket.title}</h1>
@@ -376,12 +376,12 @@ const TicketDetail = () => {
                   value={editData.description}
                   onChange={(e) => setEditData({ ...editData, description: e.target.value })}
                   rows={6}
-                  className="w-full px-3 py-2 border-2 border-border rounded bg-background text-foreground resize-none"
+                  className="w-full rounded-2xl border border-border/70 bg-background/85 px-4 py-3 text-foreground resize-none"
                 />
                 <select
                   value={editData.priority}
                   onChange={(e) => setEditData({ ...editData, priority: e.target.value })}
-                  className="px-3 py-2 border-2 border-border rounded bg-background text-foreground"
+                  className="rounded-2xl border border-border/70 bg-background/85 px-4 py-3 text-foreground"
                 >
                   <option value="Low">Low</option>
                   <option value="Medium">Medium</option>
@@ -391,7 +391,7 @@ const TicketDetail = () => {
                 <div className="flex gap-2">
                   <button
                     onClick={handleUpdateTicket}
-                    className="px-4 py-2 bg-primary text-primary-foreground rounded font-semibold hover:opacity-90"
+                    className="rounded-2xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-95"
                   >
                     Save Changes
                   </button>
@@ -404,7 +404,7 @@ const TicketDetail = () => {
                         priority: ticket.priority,
                       });
                     }}
-                    className="px-4 py-2 bg-muted text-foreground rounded font-semibold hover:bg-muted/80"
+                    className="rounded-2xl bg-muted px-4 py-2 text-sm font-semibold text-foreground hover:bg-muted/80"
                   >
                     Cancel
                   </button>
@@ -431,7 +431,7 @@ const TicketDetail = () => {
                   {ticket.tags.map((tag, index) => (
                     <span
                       key={index}
-                      className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded"
+                    className="rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground"
                     >
                       {tag}
                     </span>
@@ -442,7 +442,7 @@ const TicketDetail = () => {
           </div>
 
           {}
-          <div className="bg-card p-6 rounded-lg shadow-sm border border-border">
+          <div className="rounded-[2rem] border border-white/70 bg-white/90 p-6 shadow-[0_18px_55px_rgba(15,23,42,0.06)] backdrop-blur">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
                 <Paperclip size={20} />
@@ -450,14 +450,14 @@ const TicketDetail = () => {
               </h2>
               <button
                 onClick={() => setShowFileUpload(!showFileUpload)}
-                className="px-4 py-2 bg-primary text-primary-foreground rounded-md font-medium hover:opacity-90 text-sm"
+                className="rounded-2xl bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-95"
               >
                 {showFileUpload ? 'Cancel' : 'Add Files'}
               </button>
             </div>
 
             {showFileUpload && (
-              <div className="mb-6 p-4 bg-muted/50 rounded-lg">
+              <div className="mb-6 rounded-[1.5rem] bg-muted/50 p-4">
                 <FileUpload
                   ticketId={id}
                   onUploadComplete={handleFilesUploaded}
@@ -474,7 +474,7 @@ const TicketDetail = () => {
 
           {}
           {user?.role !== 'user' && (
-            <div className="bg-card p-4 rounded-lg shadow-sm border border-border">
+            <div className="rounded-[1.5rem] border border-white/70 bg-white/90 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.06)] backdrop-blur">
               <button
                 onClick={fetchHistory}
                 className="flex items-center gap-2 text-primary hover:text-primary/80 font-medium"
@@ -486,7 +486,7 @@ const TicketDetail = () => {
               {showHistory && history.length > 0 && (
                 <div className="mt-4 space-y-2">
                   {history.map((item, index) => (
-                    <div key={index} className="text-sm p-3 bg-muted rounded border-l-4 border-primary">
+                    <div key={index} className="rounded-2xl border-l-4 border-primary bg-muted p-3 text-sm">
                       <p className="text-foreground">
                         <span className="font-semibold">{item.user?.name || 'System'}</span>{' '}
                         {item.action}
@@ -505,7 +505,7 @@ const TicketDetail = () => {
           )}
 
           {}
-          <div className="bg-card p-6 rounded-lg shadow-sm border border-border">
+          <div className="rounded-[2rem] border border-white/70 bg-white/90 p-6 shadow-[0_18px_55px_rgba(15,23,42,0.06)] backdrop-blur">
             <h2 className="text-xl font-bold text-foreground mb-4">Replies</h2>
 
             <div className="space-y-4 mb-6">
@@ -515,7 +515,7 @@ const TicketDetail = () => {
                 replies.map((reply) => (
                   <div
                     key={reply._id}
-                    className={`p-4 rounded-lg border ${
+                  className={`rounded-[1.5rem] border p-4 ${
                       reply.isInternal
                         ? 'bg-amber-50 border-amber-200 dark:bg-amber-950/20 dark:border-amber-900'
                         : 'bg-muted border-border'
@@ -550,7 +550,7 @@ const TicketDetail = () => {
                 onChange={(e) => setReplyMessage(e.target.value)}
                 rows={4}
                 disabled={isLocked && user?.role !== 'user'}
-                className={`w-full px-4 py-3 border-2 border-border rounded-md focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-background text-foreground resize-none ${
+                className={`w-full rounded-[1.5rem] border border-border/70 bg-background/85 px-4 py-3.5 text-foreground resize-none focus:border-primary focus:outline-none ${
                   isLocked && user?.role !== 'user' ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
                 placeholder={isLocked && user?.role !== 'user' ? 'Ticket is being edited by another agent...' : 'Write your reply...'}
@@ -575,7 +575,7 @@ const TicketDetail = () => {
                   <button
                     type="submit"
                     disabled={submitting || !replyMessage.trim() || (isLocked && user?.role !== 'user')}
-                    className="flex items-center gap-2 px-6 py-2 bg-primary text-primary-foreground rounded-md font-semibold hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                    className="flex items-center gap-2 rounded-2xl bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-all hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <Send size={16} />
                     {submitting ? 'Sending...' : 'Send Reply'}
@@ -589,13 +589,13 @@ const TicketDetail = () => {
         {}
         <div className="space-y-6">
           {}
-          <div className="bg-card p-4 rounded-lg shadow-sm border border-border">
+          <div className="rounded-[1.5rem] border border-white/70 bg-white/90 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.06)] backdrop-blur">
             <h3 className="text-sm font-semibold text-foreground mb-3">Status</h3>
             <select
               value={ticket.status._id}
               onChange={(e) => handleStatusChange(e.target.value)}
               disabled={isLocked && user?.role !== 'user'}
-              className={`w-full px-3 py-2 border-2 border-border rounded-md bg-background text-foreground ${
+              className={`w-full rounded-2xl border border-border/70 bg-background/85 px-4 py-3 text-foreground ${
                 isLocked && user?.role !== 'user' ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
               }`}
             >
@@ -611,13 +611,13 @@ const TicketDetail = () => {
             ticket.status?.name?.toLowerCase().includes('resolved') || 
             ticket.status?.title?.toLowerCase().includes('closed') || 
             ticket.status?.title?.toLowerCase().includes('resolved')) && (
-            <div className="bg-card p-4 rounded-lg shadow-sm border border-border">
+            <div className="rounded-[1.5rem] border border-white/70 bg-white/90 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.06)] backdrop-blur">
               <h3 className="text-sm font-semibold text-foreground mb-3">Customer Feedback</h3>
               
               {user?.role !== 'user' && !surveyLink && (
                 <button
                   onClick={handleCreateSurvey}
-                  className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+                  className="flex w-full items-center justify-center gap-2 rounded-2xl bg-blue-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-700"
                 >
                   <Star size={16} />
                   Send Survey
@@ -625,7 +625,7 @@ const TicketDetail = () => {
               )}
 
               {surveyLink && (
-                <div className="mt-3 p-3 bg-green-50 rounded-md">
+                <div className="mt-3 rounded-2xl bg-green-50 p-3">
                   <p className="text-xs text-green-800 mb-2">
                     {user?.role === 'user' ? 'Please share your feedback:' : 'Survey created! Share this link:'}
                   </p>
@@ -634,14 +634,14 @@ const TicketDetail = () => {
                       type="text"
                       value={surveyLink}
                       readOnly
-                      className="flex-1 px-2 py-1 text-xs border border-green-300 rounded bg-white"
+                      className="flex-1 rounded-xl border border-green-300 bg-white px-2 py-1 text-xs"
                     />
                     <button
                       onClick={() => {
                         navigator.clipboard.writeText(surveyLink);
                         toast.success('Link copied!');
                       }}
-                      className="px-3 py-1 bg-green-600 text-white text-xs rounded hover:bg-green-700"
+                      className="rounded-xl bg-green-600 px-3 py-1 text-xs text-white hover:bg-green-700"
                     >
                       Copy
                     </button>
@@ -651,7 +651,7 @@ const TicketDetail = () => {
                       href={surveyLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-2 block w-full px-4 py-2 bg-blue-600 text-white text-center rounded-md hover:bg-blue-700 transition-colors"
+                      className="mt-2 block w-full rounded-2xl bg-blue-600 px-4 py-2 text-center text-white transition-colors hover:bg-blue-700"
                     >
                       Take Survey
                     </a>
@@ -669,7 +669,7 @@ const TicketDetail = () => {
 
           {}
           {user?.role !== 'user' && (
-            <div className="bg-card p-4 rounded-lg shadow-sm border border-border">
+            <div className="rounded-[1.5rem] border border-white/70 bg-white/90 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.06)] backdrop-blur">
               <h3 className="text-sm font-semibold text-foreground mb-3">Assigned To</h3>
               <select
                 value={ticket.assignedTo?._id || ''}
@@ -692,7 +692,7 @@ const TicketDetail = () => {
           )}
 
           {}
-          <div className="bg-card p-4 rounded-lg shadow-sm border border-border space-y-3">
+          <div className="space-y-3 rounded-[1.5rem] border border-white/70 bg-white/90 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.06)] backdrop-blur">
             <h3 className="text-sm font-semibold text-foreground mb-3">Details</h3>
 
             <div className="flex items-start gap-2">
@@ -734,7 +734,7 @@ const TicketDetail = () => {
 
           {}
           {user?.role !== 'user' && (
-            <div className="bg-card p-4 rounded-lg shadow-sm border border-border space-y-3">
+            <div className="space-y-3 rounded-[1.5rem] border border-white/70 bg-white/90 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.06)] backdrop-blur">
               <h3 className="text-sm font-semibold text-foreground mb-3">Advanced Actions</h3>
 
               <button
@@ -742,7 +742,7 @@ const TicketDetail = () => {
                   fetchAllTickets();
                   setShowMergeModal(true);
                 }}
-                className="w-full flex items-center gap-2 px-3 py-2 text-sm bg-muted hover:bg-muted/80 text-foreground rounded transition-all"
+                className="flex w-full items-center gap-2 rounded-2xl bg-muted px-3 py-2.5 text-sm text-foreground transition-all hover:bg-muted/80"
               >
                 <GitMerge size={16} />
                 Merge Ticket
@@ -753,7 +753,7 @@ const TicketDetail = () => {
                   fetchAllTickets();
                   setShowDependencyModal(true);
                 }}
-                className="w-full flex items-center gap-2 px-3 py-2 text-sm bg-muted hover:bg-muted/80 text-foreground rounded transition-all"
+                className="flex w-full items-center gap-2 rounded-2xl bg-muted px-3 py-2.5 text-sm text-foreground transition-all hover:bg-muted/80"
               >
                 <Link2 size={16} />
                 Add Dependency
@@ -763,11 +763,11 @@ const TicketDetail = () => {
 
           {}
           {ticket.dependencies && ticket.dependencies.length > 0 && (
-            <div className="bg-card p-4 rounded-lg shadow-sm border border-border">
+            <div className="rounded-[1.5rem] border border-white/70 bg-white/90 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.06)] backdrop-blur">
               <h3 className="text-sm font-semibold text-foreground mb-3">Dependencies</h3>
               <div className="space-y-2">
                 {ticket.dependencies.map((dep) => (
-                  <div key={dep._id} className="flex items-center justify-between p-2 bg-muted rounded">
+                  <div key={dep._id} className="flex items-center justify-between rounded-2xl bg-muted p-3">
                     <div>
                       <p className="text-sm font-medium text-foreground">
                         {dep.dependentTicket?.ticketNumber}
@@ -793,7 +793,7 @@ const TicketDetail = () => {
       {}
       {showMergeModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-card rounded-lg shadow-xl max-w-md w-full p-6">
+          <div className="w-full max-w-md rounded-[2rem] border border-white/70 bg-white/95 p-6 shadow-xl">
             <h2 className="text-xl font-bold text-foreground mb-4">Merge Ticket</h2>
             <p className="text-sm text-muted-foreground mb-4">
               Select the target ticket to merge this ticket into. This action cannot be undone.
@@ -801,7 +801,7 @@ const TicketDetail = () => {
             <select
               value={mergeTargetId}
               onChange={(e) => setMergeTargetId(e.target.value)}
-              className="w-full px-4 py-2 border-2 border-border rounded-md bg-background text-foreground mb-4"
+              className="mb-4 w-full rounded-2xl border border-border/70 bg-background/85 px-4 py-3 text-foreground"
             >
               <option value="">Select target ticket</option>
               {allTickets.map((t) => (
@@ -813,13 +813,13 @@ const TicketDetail = () => {
             <div className="flex gap-2">
               <button
                 onClick={handleMerge}
-                className="flex-1 px-4 py-2 bg-primary text-primary-foreground rounded font-semibold hover:opacity-90"
+                className="flex-1 rounded-2xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-95"
               >
                 Merge
               </button>
               <button
                 onClick={() => setShowMergeModal(false)}
-                className="px-4 py-2 bg-muted text-foreground rounded font-semibold hover:bg-muted/80"
+                className="rounded-2xl bg-muted px-4 py-2.5 text-sm font-semibold text-foreground hover:bg-muted/80"
               >
                 Cancel
               </button>
@@ -831,7 +831,7 @@ const TicketDetail = () => {
       {}
       {showDependencyModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-card rounded-lg shadow-xl max-w-md w-full p-6">
+          <div className="w-full max-w-md rounded-[2rem] border border-white/70 bg-white/95 p-6 shadow-xl">
             <h2 className="text-xl font-bold text-foreground mb-4">Add Dependency</h2>
             <div className="space-y-4">
               <div>
@@ -841,7 +841,7 @@ const TicketDetail = () => {
                 <select
                   value={dependencyData.type}
                   onChange={(e) => setDependencyData({ ...dependencyData, type: e.target.value })}
-                  className="w-full px-4 py-2 border-2 border-border rounded-md bg-background text-foreground"
+                  className="w-full rounded-2xl border border-border/70 bg-background/85 px-4 py-3 text-foreground"
                 >
                   <option value="blocks">Blocks</option>
                   <option value="blocked_by">Blocked By</option>
@@ -855,7 +855,7 @@ const TicketDetail = () => {
                 <select
                   value={dependencyData.ticketId}
                   onChange={(e) => setDependencyData({ ...dependencyData, ticketId: e.target.value })}
-                  className="w-full px-4 py-2 border-2 border-border rounded-md bg-background text-foreground"
+                  className="w-full rounded-2xl border border-border/70 bg-background/85 px-4 py-3 text-foreground"
                 >
                   <option value="">Select ticket</option>
                   {allTickets.map((t) => (
@@ -869,13 +869,13 @@ const TicketDetail = () => {
             <div className="flex gap-2 mt-4">
               <button
                 onClick={handleAddDependency}
-                className="flex-1 px-4 py-2 bg-primary text-primary-foreground rounded font-semibold hover:opacity-90"
+                className="flex-1 rounded-2xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-95"
               >
                 Add Dependency
               </button>
               <button
                 onClick={() => setShowDependencyModal(false)}
-                className="px-4 py-2 bg-muted text-foreground rounded font-semibold hover:bg-muted/80"
+                className="rounded-2xl bg-muted px-4 py-2.5 text-sm font-semibold text-foreground hover:bg-muted/80"
               >
                 Cancel
               </button>

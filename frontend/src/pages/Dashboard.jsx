@@ -62,80 +62,87 @@ const Dashboard = () => {
   };
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
+    <div className="space-y-8">
+      <div className="flex flex-col gap-4 rounded-[2rem] border border-white/70 bg-[linear-gradient(135deg,rgba(124,58,237,0.12),rgba(255,255,255,0.9),rgba(45,212,191,0.08))] p-6 shadow-[0_20px_60px_rgba(76,29,149,0.08)] lg:flex-row lg:items-center lg:justify-between">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">Overview</p>
+          <h1 className="mt-2 text-3xl font-bold text-foreground">Dashboard</h1>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
+            Track ticket volume, monitor active queues, and jump into the most recent support activity.
+          </p>
+        </div>
         <Link
           to="/tickets/new"
-          className="px-6 py-3 bg-primary text-primary-foreground rounded-md font-semibold hover:opacity-90 hover:-translate-y-0.5 transition-all shadow-sm"
+          className="inline-flex items-center justify-center rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_16px_35px_rgba(124,58,237,0.28)] transition-all hover:-translate-y-0.5 hover:opacity-95"
         >
           Create Ticket
         </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="bg-card p-6 rounded-lg shadow-sm flex gap-4 border border-border">
-          <div className="w-12 h-12 bg-primary rounded-md flex items-center justify-center text-primary-foreground shrink-0">
+        <div className="rounded-[1.75rem] border border-white/70 bg-white/85 p-6 shadow-[0_18px_45px_rgba(15,23,42,0.06)] backdrop-blur">
+          <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/20">
             <Ticket size={24} />
           </div>
-          <div>
-            <h3 className="text-sm text-muted-foreground mb-2">Total Tickets</h3>
-            <p className="text-3xl font-bold text-foreground">{stats.totalTickets}</p>
-          </div>
+          <h3 className="text-sm text-muted-foreground">Total Tickets</h3>
+          <p className="mt-2 text-3xl font-bold text-foreground">{stats.totalTickets}</p>
+          <p className="mt-2 text-sm text-muted-foreground">All requests currently tracked in the platform.</p>
         </div>
 
-        <div className="bg-card p-6 rounded-lg shadow-sm flex gap-4 border border-border">
-          <div className="w-12 h-12 bg-chart-2 rounded-md flex items-center justify-center text-primary-foreground shrink-0">
+        <div className="rounded-[1.75rem] border border-white/70 bg-white/85 p-6 shadow-[0_18px_45px_rgba(15,23,42,0.06)] backdrop-blur">
+          <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-chart-2 text-primary-foreground shadow-lg shadow-primary/20">
             <FolderOpen size={24} />
           </div>
-          <div>
-            <h3 className="text-sm text-muted-foreground mb-2">Open Tickets</h3>
-            <p className="text-3xl font-bold text-foreground">{stats.openTickets}</p>
-          </div>
+          <h3 className="text-sm text-muted-foreground">Open Tickets</h3>
+          <p className="mt-2 text-3xl font-bold text-foreground">{stats.openTickets}</p>
+          <p className="mt-2 text-sm text-muted-foreground">Requests still active and waiting for progress.</p>
         </div>
 
-        <div className="bg-card p-6 rounded-lg shadow-sm flex gap-4 border border-border">
-          <div className="w-12 h-12 bg-chart-1 rounded-md flex items-center justify-center text-white shrink-0">
+        <div className="rounded-[1.75rem] border border-white/70 bg-white/85 p-6 shadow-[0_18px_45px_rgba(15,23,42,0.06)] backdrop-blur">
+          <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-chart-1 text-white shadow-lg shadow-emerald-500/20">
             <Users size={24} />
           </div>
-          <div>
-            <h3 className="text-sm text-muted-foreground mb-2">My Tickets</h3>
-            <p className="text-3xl font-bold text-foreground">{stats.myTickets}</p>
-          </div>
+          <h3 className="text-sm text-muted-foreground">My Tickets</h3>
+          <p className="mt-2 text-3xl font-bold text-foreground">{stats.myTickets}</p>
+          <p className="mt-2 text-sm text-muted-foreground">Tickets created by you or currently assigned to you.</p>
         </div>
 
-        <div className="bg-card p-6 rounded-lg shadow-sm flex gap-4 border border-border">
-          <div className="w-12 h-12 bg-chart-4 rounded-md flex items-center justify-center text-white shrink-0">
+        <div className="rounded-[1.75rem] border border-white/70 bg-white/85 p-6 shadow-[0_18px_45px_rgba(15,23,42,0.06)] backdrop-blur">
+          <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-chart-4 text-white shadow-lg shadow-blue-500/20">
             <TrendingUp size={24} />
           </div>
-          <div>
-            <h3 className="text-sm text-muted-foreground mb-2">Escalated</h3>
-            <p className="text-3xl font-bold text-foreground">{stats.escalatedTickets}</p>
-          </div>
+          <h3 className="text-sm text-muted-foreground">Escalated</h3>
+          <p className="mt-2 text-3xl font-bold text-foreground">{stats.escalatedTickets}</p>
+          <p className="mt-2 text-sm text-muted-foreground">High-priority issues needing immediate visibility.</p>
         </div>
       </div>
 
-      <div className="bg-card p-6 rounded-lg shadow-sm border border-border">
-        <h2 className="text-xl font-bold text-foreground mb-4">Recent Tickets</h2>
+      <div className="rounded-[2rem] border border-white/70 bg-white/90 p-6 shadow-[0_18px_55px_rgba(15,23,42,0.06)] backdrop-blur">
+        <div className="mb-5 flex items-center justify-between">
+          <div>
+            <h2 className="text-xl font-bold text-foreground">Recent Tickets</h2>
+            <p className="mt-1 text-sm text-muted-foreground">Latest support conversations and queue movement.</p>
+          </div>
+        </div>
         <div className="flex flex-col gap-4">
           {recentTickets.map((ticket) => (
             <Link
               key={ticket._id}
               to={`/tickets/${ticket._id}`}
-              className="p-4 border-2 border-border rounded-md hover:border-primary hover:shadow-md transition-all bg-card"
+              className="rounded-[1.5rem] border border-border/70 bg-background/85 p-5 transition-all hover:-translate-y-0.5 hover:border-primary/35 hover:shadow-lg"
             >
-              <div className="flex justify-between items-center mb-2">
+              <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
                 <span className="font-semibold text-primary">{ticket.ticketNumber}</span>
                 <span
-                  className="px-3 py-1 rounded-full text-xs font-semibold text-white"
+                  className="rounded-full px-3 py-1 text-xs font-semibold text-white shadow-sm"
                   style={{ backgroundColor: ticket.status?.color }}
                 >
                   {ticket.status?.title}
                 </span>
               </div>
-              <h3 className="text-foreground font-medium mb-2">{ticket.title}</h3>
-              <div className="flex gap-4 text-sm text-muted-foreground">
-                <span className={`px-2 py-1 rounded-sm text-xs font-semibold ${getPriorityClasses(ticket.priority)}`}>
+              <h3 className="mb-3 text-lg font-semibold text-foreground">{ticket.title}</h3>
+              <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
+                <span className={`rounded-full px-3 py-1 text-xs font-semibold ${getPriorityClasses(ticket.priority)}`}>
                   {ticket.priority}
                 </span>
                 <span>{ticket.department?.name}</span>

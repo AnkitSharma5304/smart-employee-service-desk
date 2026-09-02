@@ -104,9 +104,10 @@ const CreateTicket = () => {
   };
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-8">
+    <div className="space-y-8">
+      <div className="flex flex-col gap-4 rounded-[2rem] border border-white/70 bg-[linear-gradient(135deg,rgba(124,58,237,0.08),rgba(255,255,255,0.92),rgba(20,184,166,0.08))] p-6 shadow-[0_20px_60px_rgba(76,29,149,0.08)] lg:flex-row lg:items-center lg:justify-between">
         <div>
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">New Request</p>
           <h1 className="text-3xl font-bold text-foreground">Create New Ticket</h1>
           {selectedTemplate && (
             <p className="text-sm text-muted-foreground mt-1">
@@ -118,14 +119,14 @@ const CreateTicket = () => {
           <button
             type="button"
             onClick={() => setShowTemplatePicker(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="flex items-center gap-2 rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-[0_16px_35px_rgba(124,58,237,0.28)] transition-all hover:-translate-y-0.5 hover:opacity-95"
           >
             <FileText size={20} />
             Use Template
           </button>
           <button
             onClick={() => navigate('/tickets')}
-            className="flex items-center gap-2 px-4 py-2 text-muted-foreground hover:text-foreground transition-colors"
+            className="flex items-center gap-2 rounded-2xl border border-border/70 bg-white/75 px-5 py-3 text-sm font-medium text-muted-foreground transition-all hover:text-foreground"
           >
             <ArrowLeft size={20} />
             Back to Tickets
@@ -133,7 +134,7 @@ const CreateTicket = () => {
         </div>
       </div>
 
-      <div className="bg-card p-6 rounded-lg shadow-sm border border-border">
+      <div className="rounded-[2rem] border border-white/70 bg-white/90 p-6 shadow-[0_18px_55px_rgba(15,23,42,0.06)] backdrop-blur">
         {!showFileUpload ? (
           <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -147,7 +148,7 @@ const CreateTicket = () => {
                 name="title"
                 value={formData.title}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border-2 border-border rounded-md focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-background text-foreground"
+                className="w-full rounded-2xl border border-border/70 bg-background/85 px-4 py-3.5 text-foreground shadow-sm focus:border-primary focus:outline-none"
                 placeholder="Brief description of the issue"
                 required
               />
@@ -163,7 +164,7 @@ const CreateTicket = () => {
                 value={formData.description}
                 onChange={handleChange}
                 rows={6}
-                className="w-full px-4 py-3 border-2 border-border rounded-md focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-background text-foreground resize-none"
+                className="w-full rounded-2xl border border-border/70 bg-background/85 px-4 py-3.5 text-foreground shadow-sm resize-none focus:border-primary focus:outline-none"
                 placeholder="Detailed description of the issue..."
                 required
               />
@@ -178,7 +179,7 @@ const CreateTicket = () => {
                 name="priority"
                 value={formData.priority}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border-2 border-border rounded-md focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-background text-foreground cursor-pointer"
+                className="w-full rounded-2xl border border-border/70 bg-background/85 px-4 py-3.5 text-foreground shadow-sm cursor-pointer focus:border-primary focus:outline-none"
                 required
               >
                 <option value="Low">Low</option>
@@ -197,7 +198,7 @@ const CreateTicket = () => {
                 name="department"
                 value={formData.department}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border-2 border-border rounded-md focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-background text-foreground cursor-pointer"
+                className="w-full rounded-2xl border border-border/70 bg-background/85 px-4 py-3.5 text-foreground shadow-sm cursor-pointer focus:border-primary focus:outline-none"
                 required
               >
                 <option value="">Select Department</option>
@@ -219,7 +220,7 @@ const CreateTicket = () => {
                 name="tags"
                 value={formData.tags}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border-2 border-border rounded-md focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-background text-foreground"
+                className="w-full rounded-2xl border border-border/70 bg-background/85 px-4 py-3.5 text-foreground shadow-sm focus:border-primary focus:outline-none"
                 placeholder="Separate tags with commas (e.g., bug, urgent, login)"
               />
               <p className="text-xs text-muted-foreground mt-1">
@@ -228,18 +229,18 @@ const CreateTicket = () => {
             </div>
           </div>
 
-          <div className="flex gap-4 pt-4 border-t border-border">
+          <div className="flex gap-4 pt-4 border-t border-border/70">
             <button
               type="submit"
               disabled={loading}
-              className="px-6 py-3 bg-primary text-primary-foreground rounded-md font-semibold hover:opacity-90 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
+              className="rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_16px_35px_rgba(124,58,237,0.28)] transition-all hover:-translate-y-0.5 hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? 'Creating...' : 'Create Ticket'}
             </button>
             <button
               type="button"
               onClick={() => navigate('/tickets')}
-              className="px-6 py-3 bg-muted text-foreground rounded-md font-semibold hover:bg-muted/80 transition-all"
+              className="rounded-2xl bg-muted px-6 py-3 text-sm font-semibold text-foreground transition-all hover:bg-muted/80"
             >
               Cancel
             </button>
@@ -247,8 +248,8 @@ const CreateTicket = () => {
         </form>
         ) : (
           <div className="space-y-6">
-            <div className="text-center pb-6 border-b border-border">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
+            <div className="border-b border-border/70 pb-6 text-center">
+              <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
                 <Paperclip size={32} className="text-primary" />
               </div>
               <h2 className="text-2xl font-bold text-foreground mb-2">
@@ -264,16 +265,16 @@ const CreateTicket = () => {
               onUploadComplete={handleFilesUploaded}
             />
 
-            <div className="flex gap-4 pt-4 border-t border-border">
+            <div className="flex gap-4 pt-4 border-t border-border/70">
               <button
                 onClick={handleFilesUploaded}
-                className="flex-1 px-6 py-3 bg-primary text-primary-foreground rounded-md font-semibold hover:opacity-90 transition-all"
+                className="flex-1 rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:opacity-95"
               >
                 Continue to Ticket
               </button>
               <button
                 onClick={handleSkipFiles}
-                className="px-6 py-3 bg-muted text-foreground rounded-md font-semibold hover:bg-muted/80 transition-all"
+                className="rounded-2xl bg-muted px-6 py-3 text-sm font-semibold text-foreground transition-all hover:bg-muted/80"
               >
                 Skip
               </button>
@@ -294,4 +295,3 @@ const CreateTicket = () => {
 };
 
 export default CreateTicket;
-

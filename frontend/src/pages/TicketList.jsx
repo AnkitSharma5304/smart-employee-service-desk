@@ -79,26 +79,32 @@ const TicketList = () => {
   };
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-foreground">Tickets</h1>
+    <div className="space-y-8">
+      <div className="flex flex-col gap-4 rounded-[2rem] border border-white/70 bg-[linear-gradient(135deg,rgba(124,58,237,0.08),rgba(255,255,255,0.92),rgba(59,130,246,0.08))] p-6 shadow-[0_20px_60px_rgba(76,29,149,0.08)] lg:flex-row lg:items-center lg:justify-between">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">Queue</p>
+          <h1 className="mt-2 text-3xl font-bold text-foreground">Tickets</h1>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
+            Search, filter, and manage active requests across departments and priorities.
+          </p>
+        </div>
         <Link
           to="/tickets/new"
-          className="px-6 py-3 bg-primary text-primary-foreground rounded-md font-semibold hover:opacity-90 hover:-translate-y-0.5 transition-all shadow-sm"
+          className="inline-flex items-center justify-center rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_16px_35px_rgba(124,58,237,0.28)] transition-all hover:-translate-y-0.5 hover:opacity-95"
         >
           Create Ticket
         </Link>
       </div>
 
-      <div className="bg-card p-6 rounded-lg shadow-sm mb-6 border border-border">
-        <div className="flex items-center gap-3 px-3 py-3 border-2 border-border rounded-md mb-4 bg-background">
+      <div className="rounded-[2rem] border border-white/70 bg-white/90 p-6 shadow-[0_18px_55px_rgba(15,23,42,0.06)] backdrop-blur">
+        <div className="mb-4 flex items-center gap-3 rounded-[1.5rem] border border-border/70 bg-background/85 px-4 py-3 shadow-sm">
           <Search size={20} className="text-muted-foreground" />
           <input
             type="text"
             placeholder="Search tickets..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 border-none outline-none text-base bg-transparent text-foreground placeholder:text-muted-foreground"
+            className="flex-1 border-none bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground"
           />
         </div>
 
@@ -107,7 +113,7 @@ const TicketList = () => {
             <select
               value={filters.status}
               onChange={(e) => setFilters({ ...filters, status: e.target.value })}
-              className="appearance-none px-4 py-2 pr-10 border-2 border-border rounded-md text-sm cursor-pointer bg-background text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className="appearance-none rounded-2xl border border-border/70 bg-background/85 px-4 py-3 pr-10 text-sm text-foreground shadow-sm cursor-pointer focus:outline-none focus:border-primary"
             >
               <option value="">All Statuses</option>
               {statuses.map((status) => (
@@ -127,7 +133,7 @@ const TicketList = () => {
             <select
               value={filters.priority}
               onChange={(e) => setFilters({ ...filters, priority: e.target.value })}
-              className="appearance-none px-4 py-2 pr-10 border-2 border-border rounded-md text-sm cursor-pointer bg-background text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className="appearance-none rounded-2xl border border-border/70 bg-background/85 px-4 py-3 pr-10 text-sm text-foreground shadow-sm cursor-pointer focus:outline-none focus:border-primary"
             >
               <option value="">All Priorities</option>
               <option value="Low">Low</option>
@@ -146,7 +152,7 @@ const TicketList = () => {
             <select
               value={filters.department}
               onChange={(e) => setFilters({ ...filters, department: e.target.value })}
-              className="appearance-none px-4 py-2 pr-10 border-2 border-border rounded-md text-sm cursor-pointer bg-background text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className="appearance-none rounded-2xl border border-border/70 bg-background/85 px-4 py-3 pr-10 text-sm text-foreground shadow-sm cursor-pointer focus:outline-none focus:border-primary"
             >
               <option value="">All Departments</option>
               {departments.map((dept) => (
@@ -170,11 +176,11 @@ const TicketList = () => {
         </div>
       ) : (
         <>
-          <div className="bg-card rounded-lg shadow-sm overflow-hidden border border-border">
+          <div className="overflow-hidden rounded-[2rem] border border-white/70 bg-white/90 shadow-[0_18px_55px_rgba(15,23,42,0.06)] backdrop-blur">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="bg-muted border-b-2 border-border">
+                  <tr className="border-b border-border/70 bg-muted/70">
                     <th className="px-4 py-4 text-left font-semibold text-foreground">Ticket #</th>
                     <th className="px-4 py-4 text-left font-semibold text-foreground">Title</th>
                     <th className="px-4 py-4 text-left font-semibold text-foreground">Status</th>
@@ -185,7 +191,7 @@ const TicketList = () => {
                 </thead>
                 <tbody>
                   {tickets.map((ticket) => (
-                    <tr key={ticket._id} className="border-b border-border hover:bg-accent transition-colors">
+                    <tr key={ticket._id} className="border-b border-border/60 transition-colors hover:bg-primary/[0.035]">
                       <td className="px-4 py-4">
                         <Link
                           to={`/tickets/${ticket._id}`}
@@ -204,14 +210,14 @@ const TicketList = () => {
                       </td>
                       <td className="px-4 py-4">
                         <span
-                          className="px-3 py-1 rounded-full text-xs font-semibold text-white inline-block"
+                          className="inline-block rounded-full px-3 py-1 text-xs font-semibold text-white shadow-sm"
                           style={{ backgroundColor: ticket.status?.color }}
                         >
                           {ticket.status?.title}
                         </span>
                       </td>
                       <td className="px-4 py-4">
-                        <span className={`px-2 py-1 rounded-sm text-xs font-semibold ${getPriorityClasses(ticket.priority)}`}>
+                        <span className={`rounded-full px-3 py-1 text-xs font-semibold ${getPriorityClasses(ticket.priority)}`}>
                           {ticket.priority}
                         </span>
                       </td>
@@ -232,10 +238,10 @@ const TicketList = () => {
                 <button
                   key={page}
                   onClick={() => fetchTickets(page)}
-                  className={`px-4 py-2 border rounded-md transition-all ${
+                  className={`rounded-2xl border px-4 py-2 text-sm font-medium transition-all ${
                     page === pagination.page
-                      ? 'bg-primary text-primary-foreground border-primary'
-                      : 'bg-card border-border hover:border-primary hover:text-primary'
+                      ? 'border-primary bg-primary text-primary-foreground shadow-lg shadow-primary/20'
+                      : 'border-border bg-white/80 text-foreground hover:border-primary/35 hover:text-primary'
                   }`}
                 >
                   {page}
