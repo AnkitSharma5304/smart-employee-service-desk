@@ -639,6 +639,25 @@ GET    /api/analytics
 
 ---
 
+## 👤 Demo Credentials
+
+### Admin Account
+
+```text
+Email:    admin@example.com
+Password: admin123
+Role:     Admin
+
+Email:    agent@example.com
+Password: agent123
+Role:     Agent
+
+Email:    user@example.com
+Password: user123
+Role:     Employee
+```
+
+
 # 🧪 Development & Testing
 
 ### Run Frontend Linting
