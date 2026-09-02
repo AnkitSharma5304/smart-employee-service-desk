@@ -54,22 +54,22 @@ const Layout = () => {
 
   return (
     <div className="flex min-h-screen bg-transparent">
-      <aside className="fixed inset-y-4 left-4 z-20 hidden w-72 overflow-hidden rounded-[2rem] border border-white/60 bg-sidebar/90 shadow-[0_24px_80px_rgba(109,40,217,0.14)] backdrop-blur xl:flex xl:flex-col">
+      <aside className="fixed inset-y-4 left-4 z-20 hidden w-72 overflow-hidden rounded-[2rem] border border-white/60 bg-sidebar/90 shadow-[0_24px_80px_rgba(8,145,178,0.12)] backdrop-blur xl:flex xl:flex-col">
         <div className="border-b border-sidebar-border/70 px-6 py-6">
           <div className="mb-5 inline-flex items-center gap-3 rounded-full bg-primary/10 px-3 py-2 text-xs font-semibold tracking-[0.22em] text-primary uppercase">
             <ShieldCheck size={14} />
-            Support Desk
+            NexaDesk
           </div>
-          <h2 className="text-2xl font-bold text-sidebar-foreground">Service Console</h2>
+          <h2 className="text-2xl font-bold text-sidebar-foreground">Team Workspace</h2>
           <p className="mt-1 text-sm text-muted-foreground capitalize">
-            {user?.role} workspace
+            {user?.role} dashboard
           </p>
         </div>
 
         <nav className="flex-1 space-y-7 overflow-y-auto px-4 py-5">
           <div className="space-y-2">
             <p className="px-3 text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-              Overview
+              Main Menu
             </p>
             {primaryLinks
               .filter((item) => canAccess(item.roles))
@@ -85,7 +85,7 @@ const Layout = () => {
 
           <div className="space-y-2">
             <p className="px-3 text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-              Management
+              Admin Tools
             </p>
             {managementLinks
               .filter((item) => canAccess(item.roles))
@@ -102,10 +102,10 @@ const Layout = () => {
           <div className="rounded-[1.75rem] border border-white/70 bg-white/70 p-4 shadow-sm">
             <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-foreground">
               <BellRing size={16} className="text-primary" />
-              Productivity Tip
+              Daily Pro Tip
             </div>
             <p className="text-sm leading-6 text-muted-foreground">
-              Keep ticket updates clear and short so agents and customers can follow the full history faster.
+              Write concise ticket updates — it helps teammates and requesters follow the timeline without confusion.
             </p>
           </div>
         </nav>
@@ -120,7 +120,7 @@ const Layout = () => {
             className="flex w-full items-center justify-center gap-2 rounded-2xl bg-destructive/10 px-3 py-3 text-sm font-semibold text-destructive transition-all hover:bg-destructive/15"
           >
             <LogOut size={20} />
-            <span>Logout</span>
+            <span>Sign out</span>
           </button>
         </div>
       </aside>
@@ -154,12 +154,12 @@ const Layout = () => {
           <div className="sticky top-4 z-10 mb-8 rounded-[2rem] border border-white/65 bg-white/75 px-6 py-5 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
               <div>
-                <p className="text-sm font-medium text-primary">Support Desk Workspace</p>
+                <p className="text-sm font-medium text-primary">NexaDesk Dashboard</p>
                 <h1 className="mt-1 text-2xl font-bold text-foreground">
-                  Welcome back, {user?.name?.split(' ')[0] || 'there'}
+                  Hello again, {user?.name?.split(' ')[0] || 'there'}
                 </h1>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  Manage requests, collaborate faster, and keep every support queue in sync.
+                  Stay on top of tickets, collaborate quickly, and keep every queue moving forward.
                 </p>
               </div>
               <div className="flex items-center gap-3">

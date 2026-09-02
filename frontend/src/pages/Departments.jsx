@@ -26,7 +26,7 @@ const Departments = () => {
       setDepartments(data.data);
     } catch (error) {
       console.error('Failed to fetch departments:', error);
-      toast.error('Failed to load departments');
+      toast.error("Couldn't load teams");
     } finally {
       setLoading(false);
     }
@@ -37,17 +37,17 @@ const Departments = () => {
     try {
       if (editingDept) {
         await api.put(`/departments/${editingDept._id}`, formData);
-        toast.success('Department updated successfully');
+        toast.success('Team updated');
       } else {
         await api.post('/departments', formData);
-        toast.success('Department created successfully');
+        toast.success('Team created');
       }
       setShowModal(false);
       resetForm();
       fetchDepartments();
     } catch (error) {
       console.error('Failed to save department:', error);
-      toast.error(error.response?.data?.message || 'Failed to save department');
+      toast.error(error.response?.data?.message || "Couldn't save team");
     }
   };
 
@@ -63,15 +63,15 @@ const Departments = () => {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this department?')) return;
+    if (!window.confirm('Permanently delete this team? Tickets may be affected.')) return;
 
     try {
       await api.delete(`/departments/${id}`);
-      toast.success('Department deleted successfully');
+      toast.success('Team deleted');
       fetchDepartments();
     } catch (error) {
       console.error('Failed to delete department:', error);
-      toast.error('Failed to delete department');
+      toast.error("Couldn't delete team");
     }
   };
 
@@ -93,19 +93,19 @@ const Departments = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-foreground">Departments</h1>
+        <h1 className="text-3xl font-bold text-foreground">Teams</h1>
         <button
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-md font-semibold hover:opacity-90 hover:-translate-y-0.5 transition-all shadow-sm"
+          className="flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:opacity-90 hover:-translate-y-0.5 transition-all shadow-sm"
         >
           <Plus size={20} />
-          Add Department
+          Create New Team
         </button>
       </div>
 
       {loading ? (
         <div className="flex items-center justify-center min-h-[400px] text-lg text-muted-foreground">
-          Loading departments...
+          Loading teams...
         </div>
       ) : (
         <div className="bg-card rounded-lg shadow-sm overflow-hidden border border-border">
@@ -113,8 +113,8 @@ const Departments = () => {
             <table className="w-full">
               <thead>
                 <tr className="bg-muted border-b-2 border-border">
-                  <th className="px-4 py-4 text-left font-semibold text-foreground">Name</th>
-                  <th className="px-4 py-4 text-left font-semibold text-foreground">Email</th>
+                  <th className="px-4 py-4 text-left font-semibold text-foreground">Team Name</th>
+                  <th className="px-4 py-4 text-left font-semibold text-foreground">Contact Email</th>
                   <th className="px-4 py-4 text-left font-semibold text-foreground">Description</th>
                   <th className="px-4 py-4 text-left font-semibold text-foreground">Visibility</th>
                   <th className="px-4 py-4 text-left font-semibold text-foreground">Actions</th>
@@ -122,7 +122,7 @@ const Departments = () => {
               </thead>
               <tbody>
                 {departments.map((dept) => (
-                  <tr key={dept._id} className="border-b border-border hover:bg-accent transition-colors">
+                  <tr key={dept._id} className="border-b border-border hover:bg-accent transition-colors duration-200">
                     <td className="px-4 py-4 font-medium text-foreground">{dept.name}</td>
                     <td className="px-4 py-4 text-muted-foreground">{dept.email}</td>
                     <td className="px-4 py-4 text-muted-foreground">{dept.description || '-'}</td>
@@ -133,21 +133,21 @@ const Departments = () => {
                           : 'bg-chart-1/20 text-chart-1'
                       }`}>
                         {dept.isHidden ? <EyeOff size={14} /> : <Eye size={14} />}
-                        {dept.isHidden ? 'Hidden' : 'Visible'}
+                        {dept.isHidden ? 'Internal Only' : 'Visible to Users'}
                       </span>
                     </td>
                     <td className="px-4 py-4">
                       <div className="flex gap-2">
                         <button
                           onClick={() => handleEdit(dept)}
-                          className="p-2 text-primary hover:bg-primary/10 rounded-md transition-colors"
+                          className="p-2 text-primary hover:bg-primary/10 rounded-xl transition-colors"
                           title="Edit"
                         >
                           <Edit2 size={18} />
                         </button>
                         <button
                           onClick={() => handleDelete(dept._id)}
-                          className="p-2 text-destructive hover:bg-destructive/10 rounded-md transition-colors"
+                          className="p-2 text-destructive hover:bg-destructive/10 rounded-xl transition-colors"
                           title="Delete"
                         >
                           <Trash2 size={18} />
@@ -167,14 +167,14 @@ const Departments = () => {
           <div className="bg-card rounded-lg shadow-xl max-w-md w-full border border-border">
             <div className="p-6 border-b border-border">
               <h2 className="text-2xl font-bold text-foreground">
-                {editingDept ? 'Edit Department' : 'Add Department'}
+                {editingDept ? 'Edit Team' : 'Create Team'}
               </h2>
             </div>
 
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
-                  Name *
+                  Team Name *
                 </label>
                 <input
                   type="text"
@@ -187,7 +187,7 @@ const Departments = () => {
 
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
-                  Email *
+                  Team Email *
                 </label>
                 <input
                   type="email"
@@ -200,7 +200,7 @@ const Departments = () => {
 
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
-                  Description
+                  Team Description
                 </label>
                 <textarea
                   value={formData.description}
@@ -219,7 +219,7 @@ const Departments = () => {
                   className="w-4 h-4 text-primary border-border rounded focus:ring-2 focus:ring-primary/20"
                 />
                 <label htmlFor="isHidden" className="text-sm text-foreground">
-                  Hide from users (admin only)
+                  Keep internal (admins &amp; agents only)
                 </label>
               </div>
 
@@ -228,7 +228,7 @@ const Departments = () => {
                   type="submit"
                   className="flex-1 px-4 py-2 bg-primary text-primary-foreground rounded-md font-semibold hover:opacity-90 transition-all"
                 >
-                  {editingDept ? 'Update' : 'Create'}
+                  {editingDept ? 'Save Changes' : 'Create Team'}
                 </button>
                 <button
                   type="button"

@@ -25,7 +25,8 @@ const CreateTicket = () => {
   });
 
   useEffect(() => {
-    fetchDepartments();
+    fetchDepartments();
+
     if (location.state?.template) {
       handleTemplateSelect(location.state.template);
     }
@@ -58,22 +59,22 @@ const CreateTicket = () => {
       tags: template.tags?.join(', ') || '',
     });
     setShowTemplatePicker(false);
-    toast.success(`Template "${template.name}" applied`);
+    toast.success(`Template "${template.name}" loaded`);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!formData.title.trim()) {
-      toast.error('Title is required');
+      toast.error('Please enter a summary');
       return;
     }
     if (!formData.description.trim()) {
-      toast.error('Description is required');
+      toast.error('Please provide details about the issue');
       return;
     }
     if (!formData.department) {
-      toast.error('Department is required');
+      toast.error('Please select a team for this ticket');
       return;
     }
 
@@ -86,7 +87,8 @@ const CreateTicket = () => {
 
       const response = await ticketService.createTicket(ticketData);
       setCreatedTicketId(response.data._id);
-      toast.success('Ticket created successfully!');
+      toast.success('Ticket created successfully!');
+
       setShowFileUpload(true);
     } catch (error) {
       console.error('Failed to create ticket:', error);
@@ -105,13 +107,13 @@ const CreateTicket = () => {
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-col gap-4 rounded-[2rem] border border-white/70 bg-[linear-gradient(135deg,rgba(124,58,237,0.08),rgba(255,255,255,0.92),rgba(20,184,166,0.08))] p-6 shadow-[0_20px_60px_rgba(76,29,149,0.08)] lg:flex-row lg:items-center lg:justify-between">
+      <div className="flex flex-col gap-4 rounded-[2rem] border border-white/70 bg-[linear-gradient(135deg,rgba(14,165,233,0.10),rgba(255,255,255,0.94),rgba(20,184,166,0.10))] p-6 shadow-[0_20px_60px_rgba(14,165,233,0.10)] lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">New Request</p>
-          <h1 className="text-3xl font-bold text-foreground">Create New Ticket</h1>
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">Submit Request</p>
+          <h1 className="text-3xl font-bold text-foreground">Raise a New Ticket</h1>
           {selectedTemplate && (
             <p className="text-sm text-muted-foreground mt-1">
-              Using template: <span className="font-medium">{selectedTemplate.name}</span>
+              Template loaded: <span className="font-medium">{selectedTemplate.name}</span>
             </p>
           )}
         </div>
@@ -119,17 +121,17 @@ const CreateTicket = () => {
           <button
             type="button"
             onClick={() => setShowTemplatePicker(true)}
-            className="flex items-center gap-2 rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-[0_16px_35px_rgba(124,58,237,0.28)] transition-all hover:-translate-y-0.5 hover:opacity-95"
+            className="flex items-center gap-2 rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-[0_16px_35px_rgba(14,165,233,0.28)] transition-all hover:-translate-y-0.5 hover:opacity-95"
           >
             <FileText size={20} />
-            Use Template
+            Browse Templates
           </button>
           <button
             onClick={() => navigate('/tickets')}
             className="flex items-center gap-2 rounded-2xl border border-border/70 bg-white/75 px-5 py-3 text-sm font-medium text-muted-foreground transition-all hover:text-foreground"
           >
             <ArrowLeft size={20} />
-            Back to Tickets
+            Return to Queue
           </button>
         </div>
       </div>
@@ -140,7 +142,7 @@ const CreateTicket = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="lg:col-span-2">
               <label htmlFor="title" className="block text-sm font-semibold text-foreground mb-2">
-                Title <span className="text-destructive">*</span>
+                Short Summary <span className="text-destructive">*</span>
               </label>
               <input
                 type="text"
@@ -149,14 +151,14 @@ const CreateTicket = () => {
                 value={formData.title}
                 onChange={handleChange}
                 className="w-full rounded-2xl border border-border/70 bg-background/85 px-4 py-3.5 text-foreground shadow-sm focus:border-primary focus:outline-none"
-                placeholder="Brief description of the issue"
+                placeholder="Summarize the problem in a few words"
                 required
               />
             </div>
 
             <div className="lg:col-span-2">
               <label htmlFor="description" className="block text-sm font-semibold text-foreground mb-2">
-                Description <span className="text-destructive">*</span>
+                Detailed Description <span className="text-destructive">*</span>
               </label>
               <textarea
                 id="description"
@@ -165,14 +167,14 @@ const CreateTicket = () => {
                 onChange={handleChange}
                 rows={6}
                 className="w-full rounded-2xl border border-border/70 bg-background/85 px-4 py-3.5 text-foreground shadow-sm resize-none focus:border-primary focus:outline-none"
-                placeholder="Detailed description of the issue..."
+                placeholder="Provide full details: steps to reproduce, error messages, expected behavior, etc."
                 required
               />
             </div>
 
             <div>
               <label htmlFor="priority" className="block text-sm font-semibold text-foreground mb-2">
-                Priority <span className="text-destructive">*</span>
+                Urgency Level <span className="text-destructive">*</span>
               </label>
               <select
                 id="priority"
@@ -191,7 +193,7 @@ const CreateTicket = () => {
 
             <div>
               <label htmlFor="department" className="block text-sm font-semibold text-foreground mb-2">
-                Department <span className="text-destructive">*</span>
+                Assign to Team <span className="text-destructive">*</span>
               </label>
               <select
                 id="department"
@@ -201,7 +203,7 @@ const CreateTicket = () => {
                 className="w-full rounded-2xl border border-border/70 bg-background/85 px-4 py-3.5 text-foreground shadow-sm cursor-pointer focus:border-primary focus:outline-none"
                 required
               >
-                <option value="">Select Department</option>
+                <option value="">Choose a team...</option>
                 {departments.map((dept) => (
                   <option key={dept._id} value={dept._id}>
                     {dept.name}
@@ -212,7 +214,7 @@ const CreateTicket = () => {
 
             <div className="lg:col-span-2">
               <label htmlFor="tags" className="block text-sm font-semibold text-foreground mb-2">
-                Tags (optional)
+                Tags (comma separated)
               </label>
               <input
                 type="text"
@@ -221,10 +223,10 @@ const CreateTicket = () => {
                 value={formData.tags}
                 onChange={handleChange}
                 className="w-full rounded-2xl border border-border/70 bg-background/85 px-4 py-3.5 text-foreground shadow-sm focus:border-primary focus:outline-none"
-                placeholder="Separate tags with commas (e.g., bug, urgent, login)"
+                placeholder="Add relevant tags (e.g., bug, billing, api-issue)"
               />
               <p className="text-xs text-muted-foreground mt-1">
-                Separate multiple tags with commas
+                Use commas to separate multiple tags
               </p>
             </div>
           </div>
@@ -233,9 +235,9 @@ const CreateTicket = () => {
             <button
               type="submit"
               disabled={loading}
-              className="rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_16px_35px_rgba(124,58,237,0.28)] transition-all hover:-translate-y-0.5 hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_16px_35px_rgba(14,165,233,0.28)] transition-all hover:-translate-y-0.5 hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {loading ? 'Creating...' : 'Create Ticket'}
+              {loading ? 'Submitting...' : 'Submit Ticket'}
             </button>
             <button
               type="button"
@@ -253,10 +255,10 @@ const CreateTicket = () => {
                 <Paperclip size={32} className="text-primary" />
               </div>
               <h2 className="text-2xl font-bold text-foreground mb-2">
-                Add Attachments (Optional)
+                Attach Files (Optional)
               </h2>
               <p className="text-muted-foreground">
-                Upload screenshots, logs, or documents to help us resolve your issue faster
+                Drop screenshots, error logs, or relevant files here to speed up resolution.
               </p>
             </div>
 
@@ -270,13 +272,13 @@ const CreateTicket = () => {
                 onClick={handleFilesUploaded}
                 className="flex-1 rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:opacity-95"
               >
-                Continue to Ticket
+                View My Ticket
               </button>
               <button
                 onClick={handleSkipFiles}
                 className="rounded-2xl bg-muted px-6 py-3 text-sm font-semibold text-foreground transition-all hover:bg-muted/80"
               >
-                Skip
+                Skip for now
               </button>
             </div>
           </div>

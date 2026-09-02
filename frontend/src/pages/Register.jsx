@@ -76,21 +76,21 @@ const Register = () => {
   return (
     <div className="relative min-h-screen overflow-hidden px-4 py-6 sm:px-6 lg:px-8">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-[10%] top-[6%] h-72 w-72 rounded-full bg-primary/18 blur-3xl" />
-        <div className="absolute bottom-[8%] right-[10%] h-80 w-80 rounded-full bg-chart-4/16 blur-3xl" />
+        <div className="absolute left-[10%] top-[6%] h-72 w-72 rounded-full bg-teal-500/20 blur-3xl" />
+        <div className="absolute bottom-[8%] right-[10%] h-80 w-80 rounded-full bg-cyan-400/18 blur-3xl" />
       </div>
 
       <div className="relative mx-auto grid min-h-[calc(100vh-3rem)] max-w-7xl overflow-hidden rounded-[2rem] border border-white/65 bg-white/70 shadow-[0_30px_120px_rgba(76,29,149,0.16)] backdrop-blur xl:grid-cols-[1.05fr_0.95fr]">
-        <div className="hidden xl:flex flex-col justify-between bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.28),transparent_28%),linear-gradient(160deg,#4f46e5_0%,#7c3aed_42%,#1e1b4b_100%)] p-12 text-white">
+        <div className="hidden xl:flex flex-col justify-between bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.28),transparent_28%),linear-gradient(160deg,#0d9488_0%,#06b6d4_40%,#4f46e5_100%)] p-12 text-white">
           <div>
             <div className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white/85">
-              Build your workspace
+              Start with NexaDesk
             </div>
             <h1 className="mt-8 max-w-lg text-5xl font-bold leading-tight">
-              Launch a cleaner support experience from day one.
+              Transform how your team handles support, starting today.
             </h1>
             <p className="mt-5 max-w-xl text-base leading-7 text-white/75">
-              Create your account and start managing tickets with a polished, organized, and collaboration-ready help desk interface.
+              Set up your account and begin organizing tickets with a refined interface built for productive teams.
             </p>
           </div>
 
@@ -99,56 +99,56 @@ const Register = () => {
               <div className="mb-4 flex items-start gap-3">
                 <CheckCircle2 className="mt-1 shrink-0 text-white" size={22} />
                 <div>
-                  <h3 className="text-lg font-semibold">Everything in one place</h3>
+                  <h3 className="text-lg font-semibold">A single source of truth</h3>
                   <p className="mt-1 text-sm leading-6 text-white/75">
-                    Create, prioritize, assign, and resolve requests with a flow built for support teams.
+                    Submit, prioritize, assign, and resolve tickets using a workflow designed with support teams in mind.
                   </p>
                 </div>
               </div>
               <div className="grid grid-cols-3 gap-3">
                 <div className="rounded-2xl bg-white/10 p-3">
                   <p className="text-2xl font-bold">Fast</p>
-                  <p className="mt-1 text-xs text-white/70">Setup</p>
+                  <p className="mt-1 text-xs text-white/70">Quick setup</p>
                 </div>
                 <div className="rounded-2xl bg-white/10 p-3">
                   <p className="text-2xl font-bold">Secure</p>
-                  <p className="mt-1 text-xs text-white/70">Access</p>
+                  <p className="mt-1 text-xs text-white/70">Bank-grade security</p>
                 </div>
                 <div className="rounded-2xl bg-white/10 p-3">
                   <p className="text-2xl font-bold">Shared</p>
-                  <p className="mt-1 text-xs text-white/70">Context</p>
+                  <p className="mt-1 text-xs text-white/70">Full context</p>
                 </div>
               </div>
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="rounded-[1.5rem] border border-white/15 bg-white/10 p-4 backdrop-blur">
-                <p className="text-sm font-semibold">Quick onboarding</p>
+                <p className="text-sm font-semibold">Fast team onboarding</p>
                 <p className="mt-2 text-sm leading-6 text-white/75">
-                  Start in minutes with an intuitive, low-friction setup.
+                  Get your team up and running in minutes with a simple, guided setup flow.
                 </p>
               </div>
               <div className="rounded-[1.5rem] border border-white/15 bg-white/10 p-4 backdrop-blur">
-                <p className="text-sm font-semibold">Stronger collaboration</p>
+                <p className="text-sm font-semibold">Better team alignment</p>
                 <p className="mt-2 text-sm leading-6 text-white/75">
-                  Keep team updates, templates, and communication aligned.
+                  Keep canned replies, templates, and team conversations perfectly synchronized.
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="text-sm text-white/60">© 2026 Support Desk. All rights reserved.</div>
+          <div className="text-sm text-white/60">© 2026 NexaDesk. Crafted for modern teams.</div>
         </div>
 
         <div className="flex items-center justify-center p-6 sm:p-10 lg:p-12">
           <div className="w-full max-w-lg">
             <div className="mb-8">
               <div className="inline-flex items-center rounded-full border border-primary/15 bg-primary/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-primary">
-                Create account
+                Get Started
               </div>
-              <h2 className="mt-5 text-4xl font-bold tracking-tight text-foreground">Start your workspace</h2>
+              <h2 className="mt-5 text-4xl font-bold tracking-tight text-foreground">Set up your workspace</h2>
               <p className="mt-3 text-base leading-7 text-muted-foreground">
-                Create an account to manage support requests, collaborate with your team, and organize every customer interaction.
+                Join NexaDesk to manage tickets, collaborate seamlessly, and organize every request in one elegant platform.
               </p>
             </div>
 
@@ -175,7 +175,7 @@ const Register = () => {
                     d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                   />
                 </svg>
-                Sign up with Google
+                Sign up using Google
               </button>
 
               <div className="relative mb-6">
@@ -183,7 +183,7 @@ const Register = () => {
                   <div className="w-full border-t border-border/80"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="rounded-full bg-white px-4 text-muted-foreground">Or continue with email</span>
+                  <span className="rounded-full bg-white px-4 text-muted-foreground">Or sign up with email</span>
                 </div>
               </div>
 
@@ -208,7 +208,7 @@ const Register = () => {
 
                 <div>
                   <label className="mb-2 block text-sm font-medium text-foreground">
-                    Email Address
+                    Work Email
                   </label>
                   <div className="relative">
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
@@ -226,7 +226,7 @@ const Register = () => {
 
                 <div>
                   <label className="mb-2 block text-sm font-medium text-foreground">
-                    Password
+                    Create Password
                   </label>
                   <div className="relative">
                     <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
@@ -313,15 +313,15 @@ const Register = () => {
                 <button
                   type="submit"
                   disabled={loading || (passwordValidation && passwordValidation.passedChecks < 4)}
-                  className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-4 py-3.5 text-base font-semibold text-primary-foreground shadow-[0_16px_35px_rgba(124,58,237,0.3)] transition-all hover:-translate-y-0.5 hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-4 py-3.5 text-base font-semibold text-primary-foreground shadow-[0_16px_35px_rgba(13,148,136,0.28)] transition-all hover:-translate-y-0.5 hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  {loading ? 'Creating account...' : 'Create account'}
+                  {loading ? 'Setting things up...' : 'Create Workspace'}
                   {!loading && <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />}
                 </button>
               </form>
 
               <p className="mt-8 text-center text-muted-foreground">
-                Already have an account?{' '}
+                Already part of NexaDesk?{' '}
                 <Link to="/login" className="font-semibold text-primary hover:underline">
                   Sign in
                 </Link>

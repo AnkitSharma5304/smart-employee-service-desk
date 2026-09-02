@@ -43,11 +43,11 @@ const SurveySubmit = () => {
       if (response.data.status === 'completed') {
         setSubmitted(true);
       } else if (response.data.status === 'expired') {
-        setError('This survey has expired');
+        setError('This feedback link has expired.');
       }
     } catch (error) {
       console.error('Error fetching survey:', error);
-      setError(error.response?.data?.message || 'Survey not found');
+      setError(error.response?.data?.message || "We couldn't find this feedback request.");
     } finally {
       setLoading(false);
     }
@@ -65,7 +65,7 @@ const SurveySubmit = () => {
     e.preventDefault();
 
     if (ratings.overall === 0) {
-      alert('Please provide an overall rating');
+      alert("Don't forget to share your overall rating!");
       return;
     }
 
@@ -75,14 +75,14 @@ const SurveySubmit = () => {
         ratings,
         feedback,
         npsScore,
-        ipAddress: null, // Could be captured on backend
+        ipAddress: null,
         userAgent: navigator.userAgent,
       });
 
       setSubmitted(true);
     } catch (error) {
       console.error('Error submitting survey:', error);
-      alert(error.response?.data?.message || 'Error submitting survey');
+      alert(error.response?.data?.message || "Oops — we couldn't submit your feedback. Please try again.");
     } finally {
       setSubmitting(false);
     }
@@ -106,6 +106,7 @@ const SurveySubmit = () => {
               onMouseEnter={() => setHoveredRating({ ...hoveredRating, [category]: star })}
               onMouseLeave={() => setHoveredRating({ ...hoveredRating, [category]: 0 })}
               className="focus:outline-none transition-transform hover:scale-110"
+              title={`${star} star${star === 1 ? '' : 's'} — ${star === 1 ? 'Very Unsatisfied' : star === 2 ? 'Unsatisfied' : star === 3 ? 'Okay' : star === 4 ? 'Great' : 'Excellent'}`}
             >
               <Star
                 size={32}
@@ -118,7 +119,7 @@ const SurveySubmit = () => {
             </button>
           ))}
           <span className="ml-3 text-sm text-gray-600 self-center">
-            {currentRating > 0 ? `${currentRating} / 5` : 'Not rated'}
+            {currentRating > 0 ? `${currentRating} / 5` : 'Not rated yet'}
           </span>
         </div>
       </div>
@@ -129,7 +130,7 @@ const SurveySubmit = () => {
     return (
       <div className="mb-6">
         <label className="block text-sm font-medium text-gray-700 mb-2">
-          How likely are you to recommend our service to a friend or colleague?
+          How likely would you be to recommend NexaDesk to a coworker or friend?
         </label>
         <div className="flex gap-1 flex-wrap">
           {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((score) => (
@@ -137,7 +138,7 @@ const SurveySubmit = () => {
               key={score}
               type="button"
               onClick={() => handleNPSClick(score)}
-              className={`w-10 h-10 rounded-lg border-2 font-semibold transition-all ${
+              className={`w-10 h-10 rounded-xl border-2 font-semibold transition-all ${
                 npsScore === score
                   ? score <= 6
                     ? 'bg-red-500 text-white border-red-600'
@@ -152,8 +153,8 @@ const SurveySubmit = () => {
           ))}
         </div>
         <div className="flex justify-between text-xs text-gray-500 mt-2">
-          <span>Not at all likely</span>
-          <span>Extremely likely</span>
+          <span>Not very likely</span>
+          <span>Couldn't recommend it more</span>
         </div>
       </div>
     );
@@ -163,8 +164,8 @@ const SurveySubmit = () => {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading survey...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Preparing your feedback form...</p>
         </div>
       </div>
     );
@@ -173,9 +174,9 @@ const SurveySubmit = () => {
   if (error) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full text-center">
+        <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md w-full text-center">
           <XCircle size={64} className="text-red-500 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Survey Not Available</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Feedback Link Unavailable</h2>
           <p className="text-gray-600">{error}</p>
         </div>
       </div>
@@ -185,16 +186,16 @@ const SurveySubmit = () => {
   if (submitted) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full text-center">
+        <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md w-full text-center">
           <CheckCircle size={64} className="text-green-500 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Thank You!</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">We truly appreciate your feedback!</h2>
           <p className="text-gray-600 mb-6">
-            Your feedback has been submitted successfully. We appreciate you taking the time to
-            help us improve our service.
+            Thanks a million for taking a moment to share your thoughts. Your input is
+            invaluable and helps us make NexaDesk better every single day.
           </p>
-          <div className="bg-blue-50 rounded-lg p-4">
-            <p className="text-sm text-blue-800">
-              Your input helps us provide better support to all our customers.
+          <div className="bg-teal-50 rounded-xl p-4">
+            <p className="text-sm text-teal-800">
+              Every comment you share is reviewed by our team and fuels ongoing improvements.
             </p>
           </div>
         </div>
@@ -205,89 +206,89 @@ const SurveySubmit = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-3xl mx-auto">
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
           {}
-          <div className="bg-linear-to-r from-blue-600 to-blue-700 px-8 py-6 text-white">
-            <h1 className="text-3xl font-bold mb-2">Customer Satisfaction Survey</h1>
-            <p className="text-blue-100">
-              Help us improve by sharing your experience with ticket #{survey?.ticket?.ticketNumber}
+          <div className="bg-linear-to-r from-teal-600 to-cyan-700 px-8 py-6 text-white">
+            <h1 className="text-3xl font-bold mb-2">We'd Love Your Feedback</h1>
+            <p className="text-teal-100">
+              Tell us about your experience with NexaDesk ticket #{survey?.ticket?.ticketNumber}
             </p>
           </div>
 
           {}
           <form onSubmit={handleSubmit} className="p-8">
             {}
-            <div className="bg-gray-50 rounded-lg p-4 mb-8">
-              <h3 className="font-semibold text-gray-900 mb-2">Ticket Details</h3>
+            <div className="bg-gray-50 rounded-xl p-4 mb-8">
+              <h3 className="font-semibold text-gray-900 mb-2">Your Recent Support Request</h3>
               <p className="text-sm text-gray-600">
                 <span className="font-medium">Ticket:</span> #{survey?.ticket?.ticketNumber}
               </p>
               <p className="text-sm text-gray-600">
-                <span className="font-medium">Title:</span> {survey?.ticket?.title}
+                <span className="font-medium">Subject:</span> {survey?.ticket?.title}
               </p>
               <p className="text-sm text-gray-600">
-                <span className="font-medium">Agent:</span> {survey?.agent?.name}
+                <span className="font-medium">Support Agent:</span> {survey?.agent?.name}
               </p>
             </div>
 
             {}
             <div className="mb-8">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Rate Your Experience</h3>
-              {renderStars('overall', 'Overall Satisfaction')}
-              {renderStars('responseTime', 'Response Time')}
-              {renderStars('professionalism', 'Professionalism')}
-              {renderStars('knowledgeability', 'Knowledge & Expertise')}
-              {renderStars('problemResolution', 'Problem Resolution')}
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">How Did We Do?</h3>
+              {renderStars('overall', 'Overall Experience')}
+              {renderStars('responseTime', 'Speed of Response')}
+              {renderStars('professionalism', 'Agent Friendliness')}
+              {renderStars('knowledgeability', 'Agent Expertise')}
+              {renderStars('problemResolution', 'Issue Resolved')}
             </div>
 
             {}
             <div className="mb-8">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Net Promoter Score</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Likelihood to Recommend NexaDesk</h3>
               {renderNPS()}
             </div>
 
             {}
             <div className="mb-8">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Additional Feedback</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Share a Few More Thoughts</h3>
 
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <ThumbsUp size={16} className="inline mr-1" />
-                  What did we do well?
+                  What went well for you?
                 </label>
                 <textarea
                   value={feedback.positive}
                   onChange={(e) => setFeedback({ ...feedback, positive: e.target.value })}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Tell us what you liked..."
+                  className="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                  placeholder="We'd love to hear what stood out..."
                 />
               </div>
 
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <ThumbsDown size={16} className="inline mr-1" />
-                  What could we improve?
+                  Where can we do better?
                 </label>
                 <textarea
                   value={feedback.improvement}
                   onChange={(e) => setFeedback({ ...feedback, improvement: e.target.value })}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Tell us how we can improve..."
+                  className="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                  placeholder="Your suggestions help us grow..."
                 />
               </div>
 
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Any other comments?
+                  Anything else you'd like to share?
                 </label>
                 <textarea
                   value={feedback.general}
                   onChange={(e) => setFeedback({ ...feedback, general: e.target.value })}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Additional feedback..."
+                  className="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                  placeholder="Additional notes, ideas, or shout-outs..."
                 />
               </div>
             </div>
@@ -297,10 +298,10 @@ const SurveySubmit = () => {
               <button
                 type="submit"
                 disabled={submitting || ratings.overall === 0}
-                className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="flex items-center gap-2 px-6 py-3 bg-cyan-600 text-white rounded-xl font-semibold hover:bg-cyan-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 <Send size={20} />
-                {submitting ? 'Submitting...' : 'Submit Survey'}
+                {submitting ? 'Sending...' : 'Send My Feedback'}
               </button>
             </div>
 
@@ -308,7 +309,7 @@ const SurveySubmit = () => {
             <div className="mt-6 flex items-center gap-2 text-sm text-gray-500">
               <Clock size={16} />
               <span>
-                This survey expires on {new Date(survey?.expiresAt).toLocaleDateString()}
+                This feedback link closes on {new Date(survey?.expiresAt).toLocaleDateString()}
               </span>
             </div>
           </form>
@@ -316,7 +317,7 @@ const SurveySubmit = () => {
 
         {}
         <div className="text-center mt-8 text-sm text-gray-500">
-          <p>Your feedback is confidential and helps us improve our service.</p>
+          <p>Your response is private and used only to improve NexaDesk for everyone.</p>
         </div>
       </div>
     </div>

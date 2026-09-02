@@ -28,7 +28,7 @@ const Statuses = () => {
       setStatuses(data.data);
     } catch (error) {
       console.error('Failed to fetch statuses:', error);
-      toast.error('Failed to load statuses');
+      toast.error("Couldn't load statuses");
     } finally {
       setLoading(false);
     }
@@ -39,23 +39,23 @@ const Statuses = () => {
     try {
       if (editingStatus) {
         await api.put(`/statuses/${editingStatus._id}`, formData);
-        toast.success('Status updated successfully');
+        toast.success('Status updated');
       } else {
         await api.post('/statuses', formData);
-        toast.success('Status created successfully');
+        toast.success('Status added');
       }
       setShowModal(false);
       resetForm();
       fetchStatuses();
     } catch (error) {
       console.error('Failed to save status:', error);
-      toast.error(error.response?.data?.message || 'Failed to save status');
+      toast.error(error.response?.data?.message || "Couldn't save status");
     }
   };
 
   const handleEdit = (status) => {
     if (status.isSystem) {
-      toast.error('Cannot edit system status');
+      toast.error('Built-in status — cannot edit');
       return;
     }
     setEditingStatus(status);
@@ -72,19 +72,19 @@ const Statuses = () => {
 
   const handleDelete = async (status) => {
     if (status.isSystem) {
-      toast.error('Cannot delete system status');
+      toast.error('Built-in status — cannot delete');
       return;
     }
 
-    if (!window.confirm('Are you sure you want to delete this status?')) return;
+    if (!window.confirm('Delete this status permanently? Tickets may be affected.')) return;
 
     try {
       await api.delete(`/statuses/${status._id}`);
-      toast.success('Status deleted successfully');
+      toast.success('Status removed');
       fetchStatuses();
     } catch (error) {
       console.error('Failed to delete status:', error);
-      toast.error('Failed to delete status');
+      toast.error("Couldn't delete status");
     }
   };
 
@@ -108,19 +108,19 @@ const Statuses = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-foreground">Statuses</h1>
+        <h1 className="text-3xl font-bold text-foreground">Ticket Statuses</h1>
         <button
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-md font-semibold hover:opacity-90 hover:-translate-y-0.5 transition-all shadow-sm"
+          className="flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:opacity-90 hover:-translate-y-0.5 transition-all shadow-sm"
         >
           <Plus size={20} />
-          Add Status
+          Add New Status
         </button>
       </div>
 
       {loading ? (
         <div className="flex items-center justify-center min-h-[400px] text-lg text-muted-foreground">
-          Loading statuses...
+          Loading workflow statuses...
         </div>
       ) : (
         <div className="bg-card rounded-lg shadow-sm overflow-hidden border border-border">
@@ -128,18 +128,18 @@ const Statuses = () => {
             <table className="w-full">
               <thead>
                 <tr className="bg-muted border-b-2 border-border">
-                  <th className="px-4 py-4 text-left font-semibold text-foreground">Order</th>
-                  <th className="px-4 py-4 text-left font-semibold text-foreground">Title</th>
-                  <th className="px-4 py-4 text-left font-semibold text-foreground">Color</th>
-                  <th className="px-4 py-4 text-left font-semibold text-foreground">Active</th>
-                  <th className="px-4 py-4 text-left font-semibold text-foreground">Auto Close</th>
+                  <th className="px-4 py-4 text-left font-semibold text-foreground">Sort Order</th>
+                  <th className="px-4 py-4 text-left font-semibold text-foreground">Label</th>
+                  <th className="px-4 py-4 text-left font-semibold text-foreground">Display Color</th>
+                  <th className="px-4 py-4 text-left font-semibold text-foreground">Counts Toward Active</th>
+                  <th className="px-4 py-4 text-left font-semibold text-foreground">Auto-Close</th>
                   <th className="px-4 py-4 text-left font-semibold text-foreground">Type</th>
                   <th className="px-4 py-4 text-left font-semibold text-foreground">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {statuses.map((status) => (
-                  <tr key={status._id} className="border-b border-border hover:bg-accent transition-colors">
+                  <tr key={status._id} className="border-b border-border hover:bg-accent transition-colors duration-200">
                     <td className="px-4 py-4 text-muted-foreground">{status.order}</td>
                     <td className="px-4 py-4">
                       <span
@@ -164,17 +164,17 @@ const Statuses = () => {
                           ? 'bg-chart-1/20 text-chart-1'
                           : 'bg-muted text-muted-foreground'
                       }`}>
-                        {status.includeInActive ? 'Yes' : 'No'}
+                        {status.includeInActive ? 'Active' : 'Excluded'}
                       </span>
                     </td>
                     <td className="px-4 py-4 text-muted-foreground">
-                      {status.autoClose ? `${status.autoCloseAfterDays} days` : 'No'}
+                      {status.autoClose ? `After ${status.autoCloseAfterDays} days` : 'No'}
                     </td>
                     <td className="px-4 py-4">
                       {status.isSystem && (
                         <span className="flex items-center gap-1 w-fit px-2 py-1 bg-muted text-muted-foreground rounded-sm text-xs font-semibold">
                           <Lock size={12} />
-                          System
+                          Built-in
                         </span>
                       )}
                     </td>
@@ -183,24 +183,24 @@ const Statuses = () => {
                         <button
                           onClick={() => handleEdit(status)}
                           disabled={status.isSystem}
-                          className={`p-2 rounded-md transition-colors ${
+                          className={`p-2 rounded-xl transition-colors ${
                             status.isSystem
                               ? 'text-muted-foreground cursor-not-allowed'
                               : 'text-primary hover:bg-primary/10'
                           }`}
-                          title={status.isSystem ? 'Cannot edit system status' : 'Edit'}
+                          title={status.isSystem ? "Built-in statuses can't be edited" : 'Edit'}
                         >
                           <Edit2 size={18} />
                         </button>
                         <button
                           onClick={() => handleDelete(status)}
                           disabled={status.isSystem}
-                          className={`p-2 rounded-md transition-colors ${
+                          className={`p-2 rounded-xl transition-colors ${
                             status.isSystem
                               ? 'text-muted-foreground cursor-not-allowed'
                               : 'text-destructive hover:bg-destructive/10'
                           }`}
-                          title={status.isSystem ? 'Cannot delete system status' : 'Delete'}
+                          title={status.isSystem ? "Built-in statuses can't be deleted" : 'Delete'}
                         >
                           <Trash2 size={18} />
                         </button>
@@ -219,14 +219,14 @@ const Statuses = () => {
           <div className="bg-card rounded-lg shadow-xl max-w-md w-full border border-border">
             <div className="p-6 border-b border-border">
               <h2 className="text-2xl font-bold text-foreground">
-                {editingStatus ? 'Edit Status' : 'Add Status'}
+                {editingStatus ? 'Edit Status' : 'Create Status'}
               </h2>
             </div>
 
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
-                  Title *
+                  Status Name *
                 </label>
                 <input
                   type="text"
@@ -239,7 +239,7 @@ const Statuses = () => {
 
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
-                  Color *
+                  Badge Color *
                 </label>
                 <div className="flex gap-2">
                   <input
@@ -262,7 +262,7 @@ const Statuses = () => {
 
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
-                  Order
+                  Sort Position
                 </label>
                 <input
                   type="number"
@@ -282,7 +282,7 @@ const Statuses = () => {
                   className="w-4 h-4 text-primary border-border rounded focus:ring-2 focus:ring-primary/20"
                 />
                 <label htmlFor="includeInActive" className="text-sm text-foreground">
-                  Include in active tickets
+                  Count this as an active status
                 </label>
               </div>
 
@@ -295,14 +295,14 @@ const Statuses = () => {
                   className="w-4 h-4 text-primary border-border rounded focus:ring-2 focus:ring-primary/20"
                 />
                 <label htmlFor="autoClose" className="text-sm text-foreground">
-                  Auto-close tickets
+                  Automatically resolve after timeout
                 </label>
               </div>
 
               {formData.autoClose && (
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
-                    Auto-close after (days)
+                    Resolve after (days)
                   </label>
                   <input
                     type="number"
@@ -319,7 +319,7 @@ const Statuses = () => {
                   type="submit"
                   className="flex-1 px-4 py-2 bg-primary text-primary-foreground rounded-md font-semibold hover:opacity-90 transition-all"
                 >
-                  {editingStatus ? 'Update' : 'Create'}
+                  {editingStatus ? 'Save Changes' : 'Create Status'}
                 </button>
                 <button
                   type="button"

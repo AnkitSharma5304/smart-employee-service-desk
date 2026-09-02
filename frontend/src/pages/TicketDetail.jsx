@@ -182,7 +182,7 @@ const TicketDetail = () => {
   const handleReplySubmit = async (e) => {
     e.preventDefault();
     if (!replyMessage.trim()) {
-      toast.error('Reply message cannot be empty');
+      toast.error('Please write something before sending');
       return;
     }
 
@@ -192,7 +192,7 @@ const TicketDetail = () => {
       setReplies([...replies, response.data]);
       setReplyMessage('');
       setIsInternal(false);
-      toast.success('Reply added successfully');
+      toast.success('Message posted successfully');
     } catch (error) {
       console.error('Failed to add reply:', error);
       toast.error(error.response?.data?.message || 'Failed to add reply');
@@ -205,10 +205,10 @@ const TicketDetail = () => {
     try {
       const response = await ticketService.changeStatus(id, statusId);
       setTicket(response.data);
-      toast.success('Status updated successfully');
+      toast.success('Status changed');
     } catch (error) {
       console.error('Failed to change status:', error);
-      toast.error('Failed to update status');
+      toast.error("Couldn't update status");
     }
   };
 
@@ -216,9 +216,9 @@ const TicketDetail = () => {
     try {
       const response = await ticketService.assignTicket(id, assignedTo || null);
       setTicket(response.data);
-      toast.success('Ticket assigned successfully');
+      toast.success('Agent assigned');
     } catch (error) {
-      toast.error('Failed to assign ticket');
+      toast.error("Couldn't assign agent");
     }
   };
 
@@ -249,10 +249,10 @@ const TicketDetail = () => {
       const surveyToken = response.data.token;
       const link = `${window.location.origin}/survey/${surveyToken}`;
       setSurveyLink(link);
-      toast.success('Survey created successfully!');
+      toast.success('Feedback link created!');
     } catch (error) {
       if (error.response?.status === 400 && error.response?.data?.message?.includes('already exists')) {
-        toast.error('Survey already exists for this ticket');
+        toast.error('A feedback request already exists');
       } else {
         toast.error(error.response?.data?.message || 'Failed to create survey');
       }
@@ -305,28 +305,28 @@ const TicketDetail = () => {
         className="flex items-center gap-2 rounded-2xl border border-border/70 bg-white/80 px-4 py-3 text-sm font-medium text-muted-foreground transition-all hover:text-foreground"
       >
         <ArrowLeft size={20} />
-        Back to Tickets
+        Back to Queue
       </button>
 
       {isLocked && lockedBy && user?.role !== 'user' && (
-        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6 rounded-r-lg">
+        <div className="bg-amber-50/80 border-l-4 border-amber-400 rounded-r-[1.5rem] p-4 mb-6">
           <div className="flex items-start">
             <div className="shrink-0">
-              <AlertTriangle className="h-5 w-5 text-yellow-400" />
+              <AlertTriangle className="h-5 w-5 text-amber-400" />
             </div>
             <div className="ml-3 flex-1">
-              <h3 className="text-sm font-medium text-yellow-800">
-                Ticket Currently Being Viewed
+              <h3 className="text-sm font-medium text-amber-800">
+                This ticket is already open
               </h3>
-              <div className="mt-2 text-sm text-yellow-700">
+              <div className="mt-2 text-sm text-amber-700">
                 <p>
-                  <strong>{lockedBy.name}</strong> ({lockedBy.email}) is currently viewing this ticket.
-                  Your changes may conflict with theirs.
+                  <strong>{lockedBy.name}</strong> is already viewing this ticket.
+                  Simultaneous edits may cause conflicts.
                 </p>
               </div>
-              <div className="mt-3 flex items-center gap-2 text-xs text-yellow-600">
+              <div className="mt-3 flex items-center gap-2 text-xs text-amber-600">
                 <Eye size={14} />
-                <span>They will be notified when you start editing</span>
+                <span>We'll notify them if you begin making changes.</span>
               </div>
             </div>
           </div>
@@ -334,10 +334,10 @@ const TicketDetail = () => {
       )}
 
       {isAcquiring && user?.role !== 'user' && (
-        <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6 rounded-r-lg">
+        <div className="bg-sky-50/80 border-l-4 border-sky-400 rounded-r-[1.5rem] p-4 mb-6">
           <div className="flex items-center">
-            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 mr-3"></div>
-            <p className="text-sm text-blue-700">Checking ticket availability...</p>
+            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-sky-600 mr-3"></div>
+            <p className="text-sm text-sky-700">Verifying ticket access...</p>
           </div>
         </div>
       )}
@@ -393,7 +393,7 @@ const TicketDetail = () => {
                     onClick={handleUpdateTicket}
                     className="rounded-2xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-95"
                   >
-                    Save Changes
+                    Save Edits
                   </button>
                   <button
                     onClick={() => {
@@ -418,7 +418,7 @@ const TicketDetail = () => {
                     onClick={() => setEditMode(true)}
                     className="text-sm text-primary hover:underline"
                   >
-                    Edit Ticket
+                    Edit Details
                   </button>
                 )}
               </>
@@ -446,13 +446,13 @@ const TicketDetail = () => {
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
                 <Paperclip size={20} />
-                Attachments ({attachments.length})
+                Files ({attachments.length})
               </h2>
               <button
                 onClick={() => setShowFileUpload(!showFileUpload)}
                 className="rounded-2xl bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-95"
               >
-                {showFileUpload ? 'Cancel' : 'Add Files'}
+                {showFileUpload ? 'Close Upload' : 'Upload Files'}
               </button>
             </div>
 
@@ -480,7 +480,7 @@ const TicketDetail = () => {
                 className="flex items-center gap-2 text-primary hover:text-primary/80 font-medium"
               >
                 <History size={20} />
-                {showHistory ? 'Hide Activity History' : 'Show Activity History'}
+                {showHistory ? 'Hide Change Log' : 'View Change Log'}
               </button>
 
               {showHistory && history.length > 0 && (
@@ -506,11 +506,11 @@ const TicketDetail = () => {
 
           {}
           <div className="rounded-[2rem] border border-white/70 bg-white/90 p-6 shadow-[0_18px_55px_rgba(15,23,42,0.06)] backdrop-blur">
-            <h2 className="text-xl font-bold text-foreground mb-4">Replies</h2>
+            <h2 className="text-xl font-bold text-foreground mb-4">Conversation Thread</h2>
 
             <div className="space-y-4 mb-6">
               {replies.length === 0 ? (
-                <p className="text-muted-foreground text-center py-8">No replies yet</p>
+                <p className="text-muted-foreground text-center py-8">No messages yet — start the conversation below.</p>
               ) : (
                 replies.map((reply) => (
                   <div
@@ -529,7 +529,7 @@ const TicketDetail = () => {
                         </span>
                         {reply.isInternal && (
                           <span className="text-xs px-2 py-0.5 bg-amber-200 text-amber-800 dark:bg-amber-900 dark:text-amber-200 rounded">
-                            Internal
+                            Private Note
                           </span>
                         )}
                       </div>
@@ -553,7 +553,7 @@ const TicketDetail = () => {
                 className={`w-full rounded-[1.5rem] border border-border/70 bg-background/85 px-4 py-3.5 text-foreground resize-none focus:border-primary focus:outline-none ${
                   isLocked && user?.role !== 'user' ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
-                placeholder={isLocked && user?.role !== 'user' ? 'Ticket is being edited by another agent...' : 'Write your reply...'}
+                placeholder={isLocked && user?.role !== 'user' ? 'Another team member is editing this ticket right now.' : 'Type your response here...'}
               />
               <div className="flex items-center justify-between gap-3">
                 <SavedReplyPicker
@@ -569,7 +569,7 @@ const TicketDetail = () => {
                         onChange={(e) => setIsInternal(e.target.checked)}
                         className="w-4 h-4"
                       />
-                      Internal note (not visible to customer)
+                      Mark as private (invisible to requester)
                     </label>
                   )}
                   <button
@@ -578,7 +578,7 @@ const TicketDetail = () => {
                     className="flex items-center gap-2 rounded-2xl bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-all hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <Send size={16} />
-                    {submitting ? 'Sending...' : 'Send Reply'}
+                    {submitting ? 'Sending...' : 'Send Message'}
                   </button>
                 </div>
               </div>
@@ -590,7 +590,7 @@ const TicketDetail = () => {
         <div className="space-y-6">
           {}
           <div className="rounded-[1.5rem] border border-white/70 bg-white/90 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.06)] backdrop-blur">
-            <h3 className="text-sm font-semibold text-foreground mb-3">Status</h3>
+            <h3 className="text-sm font-semibold text-foreground mb-3">Current Status</h3>
             <select
               value={ticket.status._id}
               onChange={(e) => handleStatusChange(e.target.value)}
@@ -612,36 +612,36 @@ const TicketDetail = () => {
             ticket.status?.title?.toLowerCase().includes('closed') || 
             ticket.status?.title?.toLowerCase().includes('resolved')) && (
             <div className="rounded-[1.5rem] border border-white/70 bg-white/90 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.06)] backdrop-blur">
-              <h3 className="text-sm font-semibold text-foreground mb-3">Customer Feedback</h3>
+              <h3 className="text-sm font-semibold text-foreground mb-3">Satisfaction Feedback</h3>
               
               {user?.role !== 'user' && !surveyLink && (
                 <button
                   onClick={handleCreateSurvey}
-                  className="flex w-full items-center justify-center gap-2 rounded-2xl bg-blue-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+                  className="flex w-full items-center justify-center gap-2 rounded-2xl bg-sky-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-sky-700"
                 >
                   <Star size={16} />
-                  Send Survey
+                  Request Feedback
                 </button>
               )}
 
               {surveyLink && (
-                <div className="mt-3 rounded-2xl bg-green-50 p-3">
-                  <p className="text-xs text-green-800 mb-2">
-                    {user?.role === 'user' ? 'Please share your feedback:' : 'Survey created! Share this link:'}
+                <div className="mt-3 rounded-[1.5rem] bg-emerald-50/80 p-3">
+                  <p className="text-xs text-emerald-800 mb-2">
+                    {user?.role === 'user' ? "We'd love to hear about your experience:" : 'Feedback request ready. Share this URL:'}
                   </p>
                   <div className="flex gap-2">
                     <input
                       type="text"
                       value={surveyLink}
                       readOnly
-                      className="flex-1 rounded-xl border border-green-300 bg-white px-2 py-1 text-xs"
+                      className="flex-1 rounded-xl border border-emerald-300 bg-white px-2 py-1 text-xs"
                     />
                     <button
                       onClick={() => {
                         navigator.clipboard.writeText(surveyLink);
-                        toast.success('Link copied!');
+                        toast.success('Link copied to clipboard!');
                       }}
-                      className="rounded-xl bg-green-600 px-3 py-1 text-xs text-white hover:bg-green-700"
+                      className="rounded-xl bg-emerald-600 px-3 py-1 text-xs text-white hover:bg-emerald-700"
                     >
                       Copy
                     </button>
@@ -651,9 +651,9 @@ const TicketDetail = () => {
                       href={surveyLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-2 block w-full rounded-2xl bg-blue-600 px-4 py-2 text-center text-white transition-colors hover:bg-blue-700"
+                      className="mt-2 block w-full rounded-2xl bg-sky-600 px-4 py-2 text-center text-white transition-colors hover:bg-sky-700"
                     >
-                      Take Survey
+                      Submit Feedback
                     </a>
                   )}
                 </div>
@@ -661,7 +661,7 @@ const TicketDetail = () => {
 
               {!surveyLink && user?.role === 'user' && (
                 <p className="text-sm text-gray-600">
-                  A satisfaction survey will be sent to you soon.
+                  Your feedback request will be available once the ticket is fully closed.
                 </p>
               )}
             </div>
@@ -670,7 +670,7 @@ const TicketDetail = () => {
           {}
           {user?.role !== 'user' && (
             <div className="rounded-[1.5rem] border border-white/70 bg-white/90 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.06)] backdrop-blur">
-              <h3 className="text-sm font-semibold text-foreground mb-3">Assigned To</h3>
+              <h3 className="text-sm font-semibold text-foreground mb-3">Assigned Agent</h3>
               <select
                 value={ticket.assignedTo?._id || ''}
                 onChange={(e) => handleAssignChange(e.target.value)}
@@ -679,7 +679,7 @@ const TicketDetail = () => {
                   isLocked && user?.role !== 'user' ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
                 }`}
               >
-                <option value="">Unassigned</option>
+                <option value="">Unassigned — pick an agent</option>
                 {users
                   .filter((u) => u.role === 'admin' || u.role === 'agent')
                   .map((u) => (
@@ -693,12 +693,12 @@ const TicketDetail = () => {
 
           {}
           <div className="space-y-3 rounded-[1.5rem] border border-white/70 bg-white/90 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.06)] backdrop-blur">
-            <h3 className="text-sm font-semibold text-foreground mb-3">Details</h3>
+            <h3 className="text-sm font-semibold text-foreground mb-3">Ticket Information</h3>
 
             <div className="flex items-start gap-2">
               <User size={16} className="text-muted-foreground mt-0.5" />
               <div className="flex-1">
-                <p className="text-xs text-muted-foreground">Created By</p>
+                <p className="text-xs text-muted-foreground">Submitted By</p>
                 <p className="text-sm text-foreground font-medium">{ticket.createdBy.name}</p>
               </div>
             </div>
@@ -706,7 +706,7 @@ const TicketDetail = () => {
             <div className="flex items-start gap-2">
               <Clock size={16} className="text-muted-foreground mt-0.5" />
               <div className="flex-1">
-                <p className="text-xs text-muted-foreground">Created</p>
+                <p className="text-xs text-muted-foreground">Date Submitted</p>
                 <p className="text-sm text-foreground">
                   {new Date(ticket.createdAt).toLocaleString()}
                 </p>
@@ -716,7 +716,7 @@ const TicketDetail = () => {
             <div className="flex items-start gap-2">
               <Clock size={16} className="text-muted-foreground mt-0.5" />
               <div className="flex-1">
-                <p className="text-xs text-muted-foreground">Last Activity</p>
+                <p className="text-xs text-muted-foreground">Last Updated</p>
                 <p className="text-sm text-foreground">
                   {new Date(ticket.lastActivityAt).toLocaleString()}
                 </p>
@@ -726,7 +726,7 @@ const TicketDetail = () => {
             <div className="flex items-start gap-2">
               <Tag size={16} className="text-muted-foreground mt-0.5" />
               <div className="flex-1">
-                <p className="text-xs text-muted-foreground">Department</p>
+                <p className="text-xs text-muted-foreground">Handling Team</p>
                 <p className="text-sm text-foreground font-medium">{ticket.department.name}</p>
               </div>
             </div>
@@ -735,7 +735,7 @@ const TicketDetail = () => {
           {}
           {user?.role !== 'user' && (
             <div className="space-y-3 rounded-[1.5rem] border border-white/70 bg-white/90 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.06)] backdrop-blur">
-              <h3 className="text-sm font-semibold text-foreground mb-3">Advanced Actions</h3>
+              <h3 className="text-sm font-semibold text-foreground mb-3">Admin Actions</h3>
 
               <button
                 onClick={() => {
@@ -745,7 +745,7 @@ const TicketDetail = () => {
                 className="flex w-full items-center gap-2 rounded-2xl bg-muted px-3 py-2.5 text-sm text-foreground transition-all hover:bg-muted/80"
               >
                 <GitMerge size={16} />
-                Merge Ticket
+                Merge with Another Ticket
               </button>
 
               <button
@@ -756,7 +756,7 @@ const TicketDetail = () => {
                 className="flex w-full items-center gap-2 rounded-2xl bg-muted px-3 py-2.5 text-sm text-foreground transition-all hover:bg-muted/80"
               >
                 <Link2 size={16} />
-                Add Dependency
+                Link to Related Ticket
               </button>
             </div>
           )}
@@ -764,7 +764,7 @@ const TicketDetail = () => {
           {}
           {ticket.dependencies && ticket.dependencies.length > 0 && (
             <div className="rounded-[1.5rem] border border-white/70 bg-white/90 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.06)] backdrop-blur">
-              <h3 className="text-sm font-semibold text-foreground mb-3">Dependencies</h3>
+              <h3 className="text-sm font-semibold text-foreground mb-3">Related Tickets</h3>
               <div className="space-y-2">
                 {ticket.dependencies.map((dep) => (
                   <div key={dep._id} className="flex items-center justify-between rounded-2xl bg-muted p-3">
@@ -779,7 +779,7 @@ const TicketDetail = () => {
                         onClick={() => handleRemoveDependency(dep.dependentTicket._id)}
                         className="text-xs text-destructive hover:text-destructive/80"
                       >
-                        Remove
+                        Unlink
                       </button>
                     )}
                   </div>
@@ -794,16 +794,16 @@ const TicketDetail = () => {
       {showMergeModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="w-full max-w-md rounded-[2rem] border border-white/70 bg-white/95 p-6 shadow-xl">
-            <h2 className="text-xl font-bold text-foreground mb-4">Merge Ticket</h2>
+            <h2 className="text-xl font-bold text-foreground mb-4">Merge This Ticket</h2>
             <p className="text-sm text-muted-foreground mb-4">
-              Select the target ticket to merge this ticket into. This action cannot be undone.
+              Choose the target ticket to merge this one into. Note: this cannot be reversed.
             </p>
             <select
               value={mergeTargetId}
               onChange={(e) => setMergeTargetId(e.target.value)}
               className="mb-4 w-full rounded-2xl border border-border/70 bg-background/85 px-4 py-3 text-foreground"
             >
-              <option value="">Select target ticket</option>
+              <option value="">Choose the destination ticket...</option>
               {allTickets.map((t) => (
                 <option key={t._id} value={t._id}>
                   {t.ticketNumber} - {t.title}
@@ -815,7 +815,7 @@ const TicketDetail = () => {
                 onClick={handleMerge}
                 className="flex-1 rounded-2xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-95"
               >
-                Merge
+                Confirm Merge
               </button>
               <button
                 onClick={() => setShowMergeModal(false)}
@@ -832,32 +832,32 @@ const TicketDetail = () => {
       {showDependencyModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="w-full max-w-md rounded-[2rem] border border-white/70 bg-white/95 p-6 shadow-xl">
-            <h2 className="text-xl font-bold text-foreground mb-4">Add Dependency</h2>
+            <h2 className="text-xl font-bold text-foreground mb-4">Link a Related Ticket</h2>
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
-                  Dependency Type
+                  Relationship Type
                 </label>
                 <select
                   value={dependencyData.type}
                   onChange={(e) => setDependencyData({ ...dependencyData, type: e.target.value })}
                   className="w-full rounded-2xl border border-border/70 bg-background/85 px-4 py-3 text-foreground"
                 >
-                  <option value="blocks">Blocks</option>
-                  <option value="blocked_by">Blocked By</option>
-                  <option value="related">Related To</option>
+                  <option value="blocks">Blocks this ticket</option>
+                  <option value="blocked_by">Blocked by this ticket</option>
+                  <option value="related">Loosely related</option>
                 </select>
               </div>
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
-                  Select Ticket
+                  Related Ticket
                 </label>
                 <select
                   value={dependencyData.ticketId}
                   onChange={(e) => setDependencyData({ ...dependencyData, ticketId: e.target.value })}
                   className="w-full rounded-2xl border border-border/70 bg-background/85 px-4 py-3 text-foreground"
                 >
-                  <option value="">Select ticket</option>
+                  <option value="">Choose a ticket to link...</option>
                   {allTickets.map((t) => (
                     <option key={t._id} value={t._id}>
                       {t.ticketNumber} - {t.title}
@@ -871,7 +871,7 @@ const TicketDetail = () => {
                 onClick={handleAddDependency}
                 className="flex-1 rounded-2xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-95"
               >
-                Add Dependency
+                Create Link
               </button>
               <button
                 onClick={() => setShowDependencyModal(false)}

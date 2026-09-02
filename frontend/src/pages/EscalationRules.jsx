@@ -40,7 +40,7 @@ const EscalationRules = () => {
       setRules(data.data || []);
     } catch (error) {
       console.error('Failed to fetch escalation rules:', error);
-      toast.error('Failed to load escalation rules');
+      toast.error('Could not load escalation workflows');
     } finally {
       setLoading(false);
     }
@@ -110,54 +110,54 @@ const EscalationRules = () => {
     e.preventDefault();
 
     if (!formData.name.trim()) {
-      toast.error('Name is required');
+      toast.error('Please name this workflow');
       return;
     }
 
     if (formData.actions.length === 0) {
-      toast.error('At least one action is required');
+      toast.error('Add at least one action step');
       return;
     }
 
     try {
       if (editingRule) {
         await api.put(`/escalations/${editingRule._id}`, formData);
-        toast.success('Escalation rule updated successfully');
+        toast.success('Workflow updated');
       } else {
         await api.post('/escalations', formData);
-        toast.success('Escalation rule created successfully');
+        toast.success('Workflow created');
       }
       fetchRules();
       handleCloseModal();
     } catch (error) {
       console.error('Failed to save escalation rule:', error);
-      toast.error(error.response?.data?.message || 'Failed to save escalation rule');
+      toast.error(error.response?.data?.message || 'Could not save workflow');
     }
   };
 
   const handleToggle = async (id) => {
     try {
       await api.patch(`/escalations/${id}/toggle`);
-      toast.success('Rule status updated');
+      toast.success('Workflow status changed');
       fetchRules();
     } catch (error) {
       console.error('Failed to toggle rule:', error);
-      toast.error('Failed to update rule status');
+      toast.error('Could not change workflow status');
     }
   };
 
   const handleDelete = async (id) => {
-    if (!confirm('Are you sure you want to delete this escalation rule?')) {
+    if (!confirm('Permanently remove this workflow?')) {
       return;
     }
 
     try {
       await api.delete(`/escalations/${id}`);
-      toast.success('Escalation rule deleted successfully');
+      toast.success('Workflow removed');
       fetchRules();
     } catch (error) {
       console.error('Failed to delete escalation rule:', error);
-      toast.error('Failed to delete escalation rule');
+      toast.error('Could not remove workflow');
     }
   };
 
@@ -184,7 +184,7 @@ const EscalationRules = () => {
   if (user?.role !== 'admin') {
     return (
       <div className="text-center py-12">
-        <p className="text-muted-foreground">You don't have permission to access this page.</p>
+        <p className="text-muted-foreground">This NexaDesk feature is admin-only. Contact your workspace owner for access.</p>
       </div>
     );
   }
@@ -192,37 +192,39 @@ const EscalationRules = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-foreground">Escalation Rules</h1>
+        <h1 className="text-3xl font-bold text-foreground">Escalation Workflows</h1>
         <button
           onClick={() => handleOpenModal()}
-          className="flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-md font-semibold hover:opacity-90 transition-all shadow-sm"
+          className="flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:opacity-90 transition-all shadow-sm"
+          style={{ boxShadow: '0 1px 3px rgba(8,145,178,0.15)' }}
         >
           <Plus size={20} />
-          Create Rule
+          New Workflow
         </button>
       </div>
 
       {loading ? (
         <div className="flex items-center justify-center min-h-[400px] text-lg text-muted-foreground">
-          Loading escalation rules...
+          Loading escalation workflows...
         </div>
       ) : (
         <div className="space-y-4">
           {rules.length === 0 ? (
-            <div className="bg-card p-12 rounded-lg shadow-sm border border-border text-center">
-              <p className="text-muted-foreground mb-4">No escalation rules configured yet.</p>
+            <div className="bg-card p-12 rounded-2xl shadow-sm border border-border text-center" style={{ boxShadow: '0 1px 3px rgba(13,148,136,0.08)' }}>
+              <p className="text-muted-foreground mb-4">No automation workflows set up yet.</p>
               <button
                 onClick={() => handleOpenModal()}
-                className="px-6 py-2 bg-primary text-primary-foreground rounded-md font-semibold hover:opacity-90"
+                className="px-6 py-2 bg-primary text-primary-foreground rounded-xl font-semibold hover:opacity-90"
               >
-                Create Your First Rule
+                Create Your First Workflow
               </button>
             </div>
           ) : (
             rules.map((rule) => (
               <div
                 key={rule._id}
-                className="bg-card p-6 rounded-lg shadow-sm border border-border"
+                className="bg-card p-6 rounded-2xl shadow-sm border border-border"
+                style={{ boxShadow: '0 1px 3px rgba(8,145,178,0.08)' }}
               >
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex-1">
@@ -235,7 +237,7 @@ const EscalationRules = () => {
                             : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'
                         }`}
                       >
-                        {rule.isActive ? 'Active' : 'Inactive'}
+                        {rule.isActive ? 'Enabled' : 'Paused'}
                       </span>
                     </div>
                     {rule.description && (
@@ -246,21 +248,21 @@ const EscalationRules = () => {
                     <button
                       onClick={() => handleToggle(rule._id)}
                       className="p-2 text-muted-foreground hover:text-foreground transition-colors"
-                      title={rule.isActive ? 'Deactivate' : 'Activate'}
+                      title={rule.isActive ? 'Pause workflow' : 'Resume workflow'}
                     >
                       {rule.isActive ? <PowerOff size={20} /> : <Power size={20} />}
                     </button>
                     <button
                       onClick={() => handleOpenModal(rule)}
                       className="p-2 text-primary hover:text-primary/80 transition-colors"
-                      title="Edit"
+                      title="Modify"
                     >
                       <Edit2 size={20} />
                     </button>
                     <button
                       onClick={() => handleDelete(rule._id)}
                       className="p-2 text-destructive hover:text-destructive/80 transition-colors"
-                      title="Delete"
+                      title="Remove"
                     >
                       <Trash2 size={20} />
                     </button>
@@ -269,24 +271,24 @@ const EscalationRules = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                   <div>
-                    <h4 className="font-semibold text-foreground mb-2">Conditions:</h4>
+                    <h4 className="font-semibold text-foreground mb-2">When:</h4>
                     <ul className="space-y-1 text-muted-foreground">
                       {rule.conditions.timeInStatus && (
-                        <li>• Time in status: {rule.conditions.timeInStatus} hours</li>
+                        <li>• Spent in status: {rule.conditions.timeInStatus} hours</li>
                       )}
                       {rule.conditions.statusId && (
                         <li>
-                          • Status:{' '}
+                          • Current status:{' '}
                           {statuses.find((s) => s._id === rule.conditions.statusId)?.title ||
                             'Unknown'}
                         </li>
                       )}
                       {rule.conditions.priority && (
-                        <li>• Priority: {rule.conditions.priority}</li>
+                        <li>• Priority level: {rule.conditions.priority}</li>
                       )}
                       {rule.conditions.departmentId && (
                         <li>
-                          • Department:{' '}
+                          • Team:{' '}
                           {departments.find((d) => d._id === rule.conditions.departmentId)?.name ||
                             'Unknown'}
                         </li>
@@ -294,14 +296,14 @@ const EscalationRules = () => {
                     </ul>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-foreground mb-2">Actions:</h4>
+                    <h4 className="font-semibold text-foreground mb-2">Then:</h4>
                     <ul className="space-y-1 text-muted-foreground">
                       {rule.actions.map((action, index) => (
                         <li key={index}>
-                          • {action.type === 'changeStatus' && 'Change status to: '}
-                          {action.type === 'assignTo' && 'Assign to: '}
-                          {action.type === 'sendEmail' && 'Send email to: '}
-                          {action.type === 'sendNotification' && 'Send notification to: '}
+                          • {action.type === 'changeStatus' && 'Update status to: '}
+                          {action.type === 'assignTo' && 'Reassign to: '}
+                          {action.type === 'sendEmail' && 'Email alert to: '}
+                          {action.type === 'sendNotification' && 'Notify: '}
                           {action.type === 'changeStatus' &&
                             (statuses.find((s) => s._id === action.value)?.title || 'Unknown')}
                           {action.type === 'assignTo' &&

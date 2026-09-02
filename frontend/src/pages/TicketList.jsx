@@ -80,19 +80,19 @@ const TicketList = () => {
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-col gap-4 rounded-[2rem] border border-white/70 bg-[linear-gradient(135deg,rgba(124,58,237,0.08),rgba(255,255,255,0.92),rgba(59,130,246,0.08))] p-6 shadow-[0_20px_60px_rgba(76,29,149,0.08)] lg:flex-row lg:items-center lg:justify-between">
+      <div className="flex flex-col gap-4 rounded-[2rem] border border-white/70 bg-[linear-gradient(135deg,rgba(20,184,166,0.08),rgba(255,255,255,0.94),rgba(59,130,246,0.10))] p-6 shadow-[0_20px_60px_rgba(13,148,136,0.10)] lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">Queue</p>
-          <h1 className="mt-2 text-3xl font-bold text-foreground">Tickets</h1>
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">All Tickets</p>
+          <h1 className="mt-2 text-3xl font-bold text-foreground">Ticket Queue</h1>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
-            Search, filter, and manage active requests across departments and priorities.
+            Search, sort, and filter all support requests by department, priority, or status.
           </p>
         </div>
         <Link
           to="/tickets/new"
-          className="inline-flex items-center justify-center rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_16px_35px_rgba(124,58,237,0.28)] transition-all hover:-translate-y-0.5 hover:opacity-95"
+          className="inline-flex items-center justify-center rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_16px_35px_rgba(13,148,136,0.28)] transition-all hover:-translate-y-0.5 hover:opacity-95"
         >
-          Create Ticket
+          Submit New Ticket
         </Link>
       </div>
 
@@ -101,7 +101,7 @@ const TicketList = () => {
           <Search size={20} className="text-muted-foreground" />
           <input
             type="text"
-            placeholder="Search tickets..."
+            placeholder="Search by ticket number, title, or content..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="flex-1 border-none bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground"
@@ -115,7 +115,7 @@ const TicketList = () => {
               onChange={(e) => setFilters({ ...filters, status: e.target.value })}
               className="appearance-none rounded-2xl border border-border/70 bg-background/85 px-4 py-3 pr-10 text-sm text-foreground shadow-sm cursor-pointer focus:outline-none focus:border-primary"
             >
-              <option value="">All Statuses</option>
+              <option value="">Any Status</option>
               {statuses.map((status) => (
                 <option key={status._id} value={status._id}>
                   {status.title}
@@ -135,7 +135,7 @@ const TicketList = () => {
               onChange={(e) => setFilters({ ...filters, priority: e.target.value })}
               className="appearance-none rounded-2xl border border-border/70 bg-background/85 px-4 py-3 pr-10 text-sm text-foreground shadow-sm cursor-pointer focus:outline-none focus:border-primary"
             >
-              <option value="">All Priorities</option>
+              <option value="">Any Priority</option>
               <option value="Low">Low</option>
               <option value="Medium">Medium</option>
               <option value="High">High</option>
@@ -154,7 +154,7 @@ const TicketList = () => {
               onChange={(e) => setFilters({ ...filters, department: e.target.value })}
               className="appearance-none rounded-2xl border border-border/70 bg-background/85 px-4 py-3 pr-10 text-sm text-foreground shadow-sm cursor-pointer focus:outline-none focus:border-primary"
             >
-              <option value="">All Departments</option>
+              <option value="">Any Department</option>
               {departments.map((dept) => (
                 <option key={dept._id} value={dept._id}>
                   {dept.name}
@@ -172,7 +172,7 @@ const TicketList = () => {
 
       {loading ? (
         <div className="flex items-center justify-center min-h-[400px] text-lg text-muted-foreground">
-          Loading tickets...
+          Fetching tickets...
         </div>
       ) : (
         <>
@@ -181,12 +181,12 @@ const TicketList = () => {
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-border/70 bg-muted/70">
-                    <th className="px-4 py-4 text-left font-semibold text-foreground">Ticket #</th>
-                    <th className="px-4 py-4 text-left font-semibold text-foreground">Title</th>
-                    <th className="px-4 py-4 text-left font-semibold text-foreground">Status</th>
-                    <th className="px-4 py-4 text-left font-semibold text-foreground">Priority</th>
-                    <th className="px-4 py-4 text-left font-semibold text-foreground">Department</th>
-                    <th className="px-4 py-4 text-left font-semibold text-foreground">Created</th>
+                    <th className="px-4 py-4 text-left font-semibold text-foreground">ID</th>
+                    <th className="px-4 py-4 text-left font-semibold text-foreground">Subject</th>
+                    <th className="px-4 py-4 text-left font-semibold text-foreground">Current Status</th>
+                    <th className="px-4 py-4 text-left font-semibold text-foreground">Priority Level</th>
+                    <th className="px-4 py-4 text-left font-semibold text-foreground">Team</th>
+                    <th className="px-4 py-4 text-left font-semibold text-foreground">Submitted</th>
                   </tr>
                 </thead>
                 <tbody>

@@ -30,7 +30,7 @@ import {
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
-const COLORS = ['#8b5cf6', '#3b82f6', '#10b981', '#f59e0b', '#ef4444'];
+const COLORS = ['#0891b2', '#3b82f6', '#10b981', '#f59e0b', '#ef4444'];
 
 const AdvancedAnalytics = () => {
   const { user } = useAuth();
@@ -75,7 +75,7 @@ const AdvancedAnalytics = () => {
       setAnalytics(data.data);
     } catch (error) {
       console.error('Failed to fetch analytics:', error);
-      toast.error('Failed to load analytics');
+      toast.error('Could not load insights');
     } finally {
       setLoading(false);
     }
@@ -132,10 +132,10 @@ const AdvancedAnalytics = () => {
         link.remove();
       }
 
-      toast.success(`Exported successfully as ${format.toUpperCase()}`);
+      toast.success(`Report downloaded as ${format.toUpperCase()}`);
     } catch (error) {
       console.error('Export failed:', error);
-      toast.error('Failed to export data');
+      toast.error('Could not download report');
     } finally {
       setExporting(false);
     }
@@ -144,14 +144,14 @@ const AdvancedAnalytics = () => {
   if (loading && !analytics) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="text-lg text-muted-foreground">Loading analytics...</div>
+        <div className="text-lg text-muted-foreground">Fetching insights...</div>
       </div>
     );
   }
 
   if (!analytics) return null;
 
-  const { overview, priorityBreakdown, statusBreakdown, ticketsOverTime } = analytics;
+  const { overview, priorityBreakdown, statusBreakdown, ticketsOverTime } = analytics;
   const priorityData = Object.entries(priorityBreakdown).map(([name, value]) => ({
     name,
     value,
@@ -160,7 +160,7 @@ const AdvancedAnalytics = () => {
   const statusData = Object.entries(statusBreakdown).map(([name, value]) => ({
     name,
     value,
-  }));
+  }));
   const combinedTimeData = [
     ...ticketsOverTime.map(item => ({
       date: new Date(item._id).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
@@ -178,7 +178,7 @@ const AdvancedAnalytics = () => {
     <div>
       {}
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8">
-        <h1 className="text-3xl font-bold text-foreground">Advanced Analytics</h1>
+        <h1 className="text-3xl font-bold text-foreground">Advanced Insights</h1>
 
         <div className="flex flex-wrap gap-3">
           {}
@@ -188,14 +188,14 @@ const AdvancedAnalytics = () => {
               type="date"
               value={dateRange.startDate}
               onChange={(e) => setDateRange({ ...dateRange, startDate: e.target.value })}
-              className="px-3 py-2 border-2 border-border rounded-md bg-background text-foreground text-sm"
+              className="px-3 py-2 border-2 border-border rounded-xl bg-background text-foreground text-sm"
             />
-            <span className="text-muted-foreground">to</span>
+            <span className="text-muted-foreground">through</span>
             <input
               type="date"
               value={dateRange.endDate}
               onChange={(e) => setDateRange({ ...dateRange, endDate: e.target.value })}
-              className="px-3 py-2 border-2 border-border rounded-md bg-background text-foreground text-sm"
+              className="px-3 py-2 border-2 border-border rounded-xl bg-background text-foreground text-sm"
             />
           </div>
 
@@ -203,9 +203,9 @@ const AdvancedAnalytics = () => {
           <select
             value={selectedDepartment}
             onChange={(e) => setSelectedDepartment(e.target.value)}
-            className="px-4 py-2 border-2 border-border rounded-md bg-background text-foreground"
+            className="px-4 py-2 border-2 border-border rounded-xl bg-background text-foreground"
           >
-            <option value="">All Departments</option>
+            <option value="">Every Team</option>
             {departments.map((dept) => (
               <option key={dept._id} value={dept._id}>
                 {dept.name}
@@ -216,33 +216,33 @@ const AdvancedAnalytics = () => {
           {}
           <button
             onClick={() => setAutoRefresh(!autoRefresh)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-md font-medium transition-all ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all ${
               autoRefresh
                 ? 'bg-primary text-primary-foreground'
                 : 'bg-muted text-foreground hover:bg-muted/80'
             }`}
           >
             <RefreshCw size={16} className={autoRefresh ? 'animate-spin' : ''} />
-            Auto Refresh
+            Live Refresh
           </button>
 
           {}
           <div className="relative group">
             <button
               disabled={exporting}
-              className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-md font-medium hover:opacity-90 disabled:opacity-50 transition-all"
+              className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-xl font-medium hover:opacity-90 disabled:opacity-50 transition-all"
             >
               <Download size={16} />
-              Export
+              Download Report
             </button>
-            <div className="absolute right-0 mt-2 w-48 bg-card border border-border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10">
+            <div className="absolute right-0 mt-2 w-48 bg-card border border-border rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10">
               <button
                 onClick={() => handleExport('csv')}
                 disabled={exporting}
                 className="w-full flex items-center gap-2 px-4 py-3 hover:bg-accent text-left transition-colors"
               >
                 <FileSpreadsheet size={16} />
-                Export as CSV
+                Download as CSV
               </button>
               <button
                 onClick={() => handleExport('json')}
@@ -250,7 +250,7 @@ const AdvancedAnalytics = () => {
                 className="w-full flex items-center gap-2 px-4 py-3 hover:bg-accent text-left transition-colors"
               >
                 <FileText size={16} />
-                Export as JSON
+                Download as JSON
               </button>
             </div>
           </div>
@@ -259,20 +259,20 @@ const AdvancedAnalytics = () => {
 
       {}
       {predictions && (
-        <div className="bg-linear-to-r from-primary/10 to-chart-2/10 p-6 rounded-lg border border-primary/20 mb-8">
+        <div className="bg-linear-to-r from-cyan-500/10 to-teal-500/10 p-6 rounded-2xl border border-cyan-500/20 mb-8">
           <div className="flex items-start gap-4">
-            <Sparkles size={24} className="text-primary mt-1" />
+            <Sparkles size={24} className="text-cyan-600 mt-1" />
             <div className="flex-1">
-              <h3 className="text-lg font-bold text-foreground mb-2">Predictive Insights</h3>
+              <h3 className="text-lg font-bold text-foreground mb-2">Forecasted Trends</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <p className="text-sm text-muted-foreground">Expected Daily Average</p>
+                  <p className="text-sm text-muted-foreground">Projected Daily Average</p>
                   <p className="text-2xl font-bold text-foreground">
-                    {predictions.insights.avgTicketsPerDay} tickets
+                    {predictions.insights.avgTicketsPerDay} requests
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Trend</p>
+                  <p className="text-sm text-muted-foreground">Direction</p>
                   <div className="flex items-center gap-2">
                     {predictions.insights.trend === 'increasing' ? (
                       <TrendingUp className="text-destructive" size={20} />
@@ -291,9 +291,9 @@ const AdvancedAnalytics = () => {
                   </div>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Last 90 Days Total</p>
+                  <p className="text-sm text-muted-foreground">Past Quarter Total</p>
                   <p className="text-2xl font-bold text-foreground">
-                    {predictions.insights.totalLast90Days} tickets
+                    {predictions.insights.totalLast90Days} requests
                   </p>
                 </div>
               </div>
@@ -305,9 +305,9 @@ const AdvancedAnalytics = () => {
       {}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         {}
-        <div className="lg:col-span-2 bg-card p-6 rounded-lg shadow-sm border border-border">
+        <div className="lg:col-span-2 bg-card p-6 rounded-2xl shadow-sm border border-border">
           <h2 className="text-xl font-bold text-foreground mb-4">
-            Tickets Timeline & 7-Day Forecast
+            Requests Timeline & 7-Day Outlook
           </h2>
           <ResponsiveContainer width="100%" height={300}>
             <AreaChart data={combinedTimeData}>
@@ -318,7 +318,7 @@ const AdvancedAnalytics = () => {
                 contentStyle={{
                   backgroundColor: 'hsl(var(--card))',
                   border: '1px solid hsl(var(--border))',
-                  borderRadius: '8px',
+                  borderRadius: '16px',
                 }}
               />
               <Legend />
@@ -328,7 +328,7 @@ const AdvancedAnalytics = () => {
                 stroke="hsl(var(--primary))"
                 fill="hsl(var(--primary))"
                 fillOpacity={0.6}
-                name="Actual Tickets"
+                name="Logged Requests"
               />
               <Area
                 type="monotone"
@@ -337,15 +337,15 @@ const AdvancedAnalytics = () => {
                 fill="hsl(var(--chart-3))"
                 fillOpacity={0.3}
                 strokeDasharray="5 5"
-                name="Predicted Tickets"
+                name="Forecasted Requests"
               />
             </AreaChart>
           </ResponsiveContainer>
         </div>
 
         {}
-        <div className="bg-card p-6 rounded-lg shadow-sm border border-border">
-          <h2 className="text-xl font-bold text-foreground mb-4">Priority Distribution</h2>
+        <div className="bg-card p-6 rounded-2xl shadow-sm border border-border">
+          <h2 className="text-xl font-bold text-foreground mb-4">Priority Spread</h2>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
@@ -355,7 +355,7 @@ const AdvancedAnalytics = () => {
                 labelLine={false}
                 label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                 outerRadius={100}
-                fill="#8884d8"
+                fill="#0891b2"
                 dataKey="value"
               >
                 {priorityData.map((entry, index) => (
@@ -366,7 +366,7 @@ const AdvancedAnalytics = () => {
                 contentStyle={{
                   backgroundColor: 'hsl(var(--card))',
                   border: '1px solid hsl(var(--border))',
-                  borderRadius: '8px',
+                  borderRadius: '16px',
                 }}
               />
             </PieChart>
@@ -374,8 +374,8 @@ const AdvancedAnalytics = () => {
         </div>
 
         {}
-        <div className="bg-card p-6 rounded-lg shadow-sm border border-border">
-          <h2 className="text-xl font-bold text-foreground mb-4">Status Distribution</h2>
+        <div className="bg-card p-6 rounded-2xl shadow-sm border border-border">
+          <h2 className="text-xl font-bold text-foreground mb-4">Status Breakdown</h2>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={statusData}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
@@ -385,7 +385,7 @@ const AdvancedAnalytics = () => {
                 contentStyle={{
                   backgroundColor: 'hsl(var(--card))',
                   border: '1px solid hsl(var(--border))',
-                  borderRadius: '8px',
+                  borderRadius: '16px',
                 }}
               />
               <Bar dataKey="value" fill="hsl(var(--primary))" radius={[8, 8, 0, 0]} />
@@ -396,24 +396,24 @@ const AdvancedAnalytics = () => {
 
       {}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-        <div className="bg-card p-6 rounded-lg shadow-sm border border-border">
-          <p className="text-sm text-muted-foreground mb-2">Total Tickets</p>
+        <div className="bg-card p-6 rounded-2xl shadow-sm border border-border">
+          <p className="text-sm text-muted-foreground mb-2">Total Requests</p>
           <p className="text-3xl font-bold text-foreground">{overview.totalTickets}</p>
         </div>
-        <div className="bg-card p-6 rounded-lg shadow-sm border border-border">
-          <p className="text-sm text-muted-foreground mb-2">Open Tickets</p>
+        <div className="bg-card p-6 rounded-2xl shadow-sm border border-border">
+          <p className="text-sm text-muted-foreground mb-2">Active Requests</p>
           <p className="text-3xl font-bold text-chart-3">{overview.openTickets}</p>
         </div>
-        <div className="bg-card p-6 rounded-lg shadow-sm border border-border">
-          <p className="text-sm text-muted-foreground mb-2">Closed Tickets</p>
+        <div className="bg-card p-6 rounded-2xl shadow-sm border border-border">
+          <p className="text-sm text-muted-foreground mb-2">Resolved Requests</p>
           <p className="text-3xl font-bold text-chart-1">{overview.closedTickets}</p>
         </div>
-        <div className="bg-card p-6 rounded-lg shadow-sm border border-border">
-          <p className="text-sm text-muted-foreground mb-2">Avg Response</p>
+        <div className="bg-card p-6 rounded-2xl shadow-sm border border-border">
+          <p className="text-sm text-muted-foreground mb-2">Avg Reply Time</p>
           <p className="text-3xl font-bold text-foreground">{overview.avgResponseTime}m</p>
         </div>
-        <div className="bg-card p-6 rounded-lg shadow-sm border border-border">
-          <p className="text-sm text-muted-foreground mb-2">Avg Resolution</p>
+        <div className="bg-card p-6 rounded-2xl shadow-sm border border-border">
+          <p className="text-sm text-muted-foreground mb-2">Avg Close Time</p>
           <p className="text-3xl font-bold text-foreground">{overview.avgResolutionTime}h</p>
         </div>
       </div>

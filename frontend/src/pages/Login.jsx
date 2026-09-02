@@ -34,21 +34,21 @@ const Login = () => {
   return (
     <div className="relative min-h-screen overflow-hidden px-4 py-6 sm:px-6 lg:px-8">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-[8%] top-[8%] h-64 w-64 rounded-full bg-primary/18 blur-3xl" />
-        <div className="absolute bottom-[10%] right-[12%] h-80 w-80 rounded-full bg-chart-1/15 blur-3xl" />
+        <div className="absolute left-[8%] top-[8%] h-64 w-64 rounded-full bg-cyan-500/20 blur-3xl" />
+        <div className="absolute bottom-[10%] right-[12%] h-80 w-80 rounded-full bg-indigo-400/15 blur-3xl" />
       </div>
 
       <div className="relative mx-auto grid min-h-[calc(100vh-3rem)] max-w-7xl overflow-hidden rounded-[2rem] border border-white/65 bg-white/70 shadow-[0_30px_120px_rgba(76,29,149,0.16)] backdrop-blur xl:grid-cols-[1.05fr_0.95fr]">
-        <div className="hidden xl:flex flex-col justify-between bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.28),transparent_28%),linear-gradient(160deg,#7c3aed_0%,#8b5cf6_45%,#312e81_100%)] p-12 text-white">
+        <div className="hidden xl:flex flex-col justify-between bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.28),transparent_28%),linear-gradient(160deg,#0891b2_0%,#06b6d4_35%,#6366f1_100%)] p-12 text-white">
           <div>
             <div className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white/85">
-              Support Desk Platform
+              NexaDesk Workspace
             </div>
             <h1 className="mt-8 max-w-lg text-5xl font-bold leading-tight">
-              Modern ticketing for faster customer care.
+              Streamline support requests with smarter ticket handling.
             </h1>
             <p className="mt-5 max-w-xl text-base leading-7 text-white/75">
-              Give your team a cleaner workspace for triage, collaboration, and resolution without losing visibility across every request.
+              Equip your team with a polished interface for triaging, collaborating, and resolving requests while maintaining full visibility.
             </p>
           </div>
 
@@ -57,56 +57,56 @@ const Login = () => {
               <div className="mb-4 flex items-start gap-3">
                 <CheckCircle2 className="mt-1 shrink-0 text-white" size={22} />
                 <div>
-                  <h3 className="text-lg font-semibold">Real-time updates</h3>
+                  <h3 className="text-lg font-semibold">Live ticket tracking</h3>
                   <p className="mt-1 text-sm leading-6 text-white/75">
-                    Stay aligned with live ticket changes, status movement, and team replies.
+                    Keep everyone in sync with instant status updates, team replies, and ticket edits.
                   </p>
                 </div>
               </div>
               <div className="grid grid-cols-3 gap-3">
                 <div className="rounded-2xl bg-white/10 p-3">
                   <p className="text-2xl font-bold">24/7</p>
-                  <p className="mt-1 text-xs text-white/70">Coverage</p>
+                  <p className="mt-1 text-xs text-white/70">Round-the-clock</p>
                 </div>
                 <div className="rounded-2xl bg-white/10 p-3">
                   <p className="text-2xl font-bold">SLA</p>
-                  <p className="mt-1 text-xs text-white/70">Tracking</p>
+                  <p className="mt-1 text-xs text-white/70">SLA Monitor</p>
                 </div>
                 <div className="rounded-2xl bg-white/10 p-3">
                   <p className="text-2xl font-bold">Live</p>
-                  <p className="mt-1 text-xs text-white/70">Responses</p>
+                  <p className="mt-1 text-xs text-white/70">Instant replies</p>
                 </div>
               </div>
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="rounded-[1.5rem] border border-white/15 bg-white/10 p-4 backdrop-blur">
-                <p className="text-sm font-semibold">Smart escalation</p>
+                <p className="text-sm font-semibold">Auto-escalation engine</p>
                 <p className="mt-2 text-sm leading-6 text-white/75">
-                  Route urgent issues with priority-aware workflows.
+                  Automatically escalate critical issues with intelligent priority routing.
                 </p>
               </div>
               <div className="rounded-[1.5rem] border border-white/15 bg-white/10 p-4 backdrop-blur">
-                <p className="text-sm font-semibold">Team collaboration</p>
+                <p className="text-sm font-semibold">Unified teamwork</p>
                 <p className="mt-2 text-sm leading-6 text-white/75">
-                  Keep replies, attachments, and ownership in one place.
+                  Centralize all communication, files, and ownership details for seamless handoffs.
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="text-sm text-white/60">© 2026 Support Desk. All rights reserved.</div>
+          <div className="text-sm text-white/60">© 2026 NexaDesk. Crafted for modern teams.</div>
         </div>
 
         <div className="flex items-center justify-center p-6 sm:p-10 lg:p-12">
           <div className="w-full max-w-lg">
             <div className="mb-8">
               <div className="inline-flex items-center rounded-full border border-primary/15 bg-primary/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-primary">
-                Sign in
+                Welcome
               </div>
-              <h2 className="mt-5 text-4xl font-bold tracking-tight text-foreground">Welcome back</h2>
+              <h2 className="mt-5 text-4xl font-bold tracking-tight text-foreground">Great to see you again</h2>
               <p className="mt-3 text-base leading-7 text-muted-foreground">
-                Sign in to access your support workspace, manage requests, and keep service operations moving.
+                Log in to manage support tickets, collaborate with teammates, and keep service operations running smoothly.
               </p>
             </div>
 
@@ -133,7 +133,7 @@ const Login = () => {
                     d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                   />
                 </svg>
-                Sign in with Google
+                Continue with Google
               </button>
 
               <div className="relative mb-6">
@@ -141,14 +141,14 @@ const Login = () => {
                   <div className="w-full border-t border-border/80"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="rounded-full bg-white px-4 text-muted-foreground">Or continue with email</span>
+                  <span className="rounded-full bg-white px-4 text-muted-foreground">Or use your email</span>
                 </div>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
                   <label className="mb-2 block text-sm font-medium text-foreground">
-                    Email Address
+                    Work Email
                   </label>
                   <div className="relative">
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
@@ -189,24 +189,24 @@ const Login = () => {
 
                 <div className="flex items-center justify-end">
                   <Link to="/forgot-password" className="text-sm font-medium text-primary hover:underline">
-                    Forgot password?
+                    Trouble logging in?
                   </Link>
                 </div>
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-4 py-3.5 text-base font-semibold text-primary-foreground shadow-[0_16px_35px_rgba(124,58,237,0.3)] transition-all hover:-translate-y-0.5 hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-4 py-3.5 text-base font-semibold text-primary-foreground shadow-[0_16px_35px_rgba(8,145,178,0.28)] transition-all hover:-translate-y-0.5 hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  {loading ? 'Signing in...' : 'Sign in'}
+                  {loading ? 'Getting you in...' : 'Sign In'}
                   {!loading && <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />}
                 </button>
               </form>
 
               <p className="mt-8 text-center text-muted-foreground">
-                Don't have an account?{' '}
+                New to NexaDesk?{' '}
                 <Link to="/register" className="font-semibold text-primary hover:underline">
-                  Create account
+                  Join now
                 </Link>
               </p>
             </div>
