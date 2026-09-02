@@ -190,31 +190,30 @@ npm run seed:templates
 📁 Project Structure
 (Add a brief tree structure of your frontend and backend directories here)
 
-🤝 Contributing
+## 🤝 Contributing
+
 Contributions are welcome! Please follow these steps:
 
-Fork the repository
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-Create a feature branch (git checkout -b feature/AmazingFeature)
+## 📝 License
 
-Commit your changes (git commit -m 'Add some AmazingFeature')
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Push to the branch (git push origin feature/AmazingFeature)
+## 👥 Authors
 
-Open a Pull Request
+- **Ankit Sharma** - *Full-Stack MERN Developer* - [GitHub](https://github.com/AnkitSharma5304)
 
-📝 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+## 🙏 Acknowledgments
 
-👥 Authors
-Ankit Sharma - Full-Stack MERN Developer - GitHub
+- React team for the amazing framework
+- MongoDB team for the database
+- All contributors who helped with this project
 
-🙏 Acknowledgments
-React team for the amazing framework
+## 📞 Support
 
-MongoDB team for the database
-
-All contributors who helped with this project
-
-📞 Support
 For support, email ankit676756@gmail.com or open an issue on the repository.
